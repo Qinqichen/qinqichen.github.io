@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>关于pytorch中的一些函数的笔记 - 个人博客</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="qqc,"> 
+    <meta name="description" content="于世间争渡,关于pytorch中的一些函数的笔记1.torch.mul / mm / matlmul / bmm 等区别1、torch.mul(a, b)是矩阵a和b对应位相乘，a和b的维度必须相等，比如a的维,"> 
+    <meta name="author" content="秦琦琛"> 
+    <link rel="alternative" href="atom.xml" title="个人博客" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">个人博客</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://qinqichen.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">关于pytorch中的一些函数的笔记</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">关于pytorch中的一些函数的笔记</h1>
+        <div class="stuff">
+            <span>十二月 09, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/pytorch/" rel="tag">pytorch</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h1 id="关于pytorch中的一些函数的笔记"><a href="#关于pytorch中的一些函数的笔记" class="headerlink" title="关于pytorch中的一些函数的笔记"></a>关于pytorch中的一些函数的笔记</h1><h2 id="1-torch-mul-mm-matlmul-bmm-等区别"><a href="#1-torch-mul-mm-matlmul-bmm-等区别" class="headerlink" title="1.torch.mul / mm / matlmul / bmm 等区别"></a>1.torch.mul / mm / matlmul / bmm 等区别</h2><p>1、torch.mul(a, b)是矩阵a和b对应位相乘，a和b的维度必须相等，比如a的维度是(1, 2)，b的维度是(1, 2)，返回的仍是(1, 2)的矩阵；<br> 2、torch.mm(a, b)是矩阵a和b矩阵相乘，比如a的维度是(1, 2)，b的维度是(2, 3)，返回的就是(1, 3)的矩阵。</p>
+<p>3.torch.bmm()强制规定维度和大小相同，torch.bmm()是tensor中的一个相乘操作，类似于矩阵中的A*B。</p>
+<p>4.torch.matmul()没有强制规定维度和大小，可以用利用广播机制进行不同维度的相乘操作</p>
+<p>当进行操作的两个tensor都是3D时，两者等同。</p>
+<p>当输入是都是二维时，就是普通的矩阵乘法，和tensor.mm函数用法相同。<br><img src="D:\Edit\AllOfMyImages\Typora\20200427101443603.png" alt="在这里插入图片描述"></p>
+<p>当输入有多维时，把多出的一维作为batch提出来，其他部分做矩阵乘法。<br><img src="D:\Edit\AllOfMyImages\Typora\2020042710180343.png" alt="在这里插入图片描述">。</p>
+<p>下面看一个两个都是3维的例子。<br><img src="https://img-blog.csdnimg.cn/20200427102034288.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FzbXg2NjY=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>将b的第0维1broadcast成2提出来，后两维做矩阵乘法即可。<br>再看一个复杂一点的，是官网的例子。<br><img src="https://img-blog.csdnimg.cn/20200427102557964.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FzbXg2NjY=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>首先把a的第0维2作为batch提出来，则a和b都可看作三维。再把a的1broadcat成5，提取公因式5。（这样说虽然不严谨，但是便于理解。）然后a剩下(3,4)，b剩下(4,2)，做矩阵乘法得到(3,2)。</p>
+<h2 id="2-random-shuffle函数"><a href="#2-random-shuffle函数" class="headerlink" title="2.random.shuffle函数"></a>2.random.shuffle函数</h2><p>在设置好batch后，需要随机抽取，那么可以对数据总量进行获取，并生成一个list，通过random.shuffle(list) 打乱序号，以进行随机抽取</p>
+<p>random.shuffle(list ): 功能就是打乱list中元素的顺序</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">data_iter</span>(<span class="params">batch_size,features,labels</span>):</span></span><br><span class="line">  num_examples = <span class="built_in">len</span>(features)</span><br><span class="line">  indices = <span class="built_in">list</span>(<span class="built_in">range</span>(num_examples))</span><br><span class="line">  random.shuffle(indices)</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,num_examples , batch_size):</span><br><span class="line">    batch_indices = torch.tensor(indices[i:<span class="built_in">min</span>(i+batch_size,num_examples - i * batch_size)])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">yield</span> features[batch_indices] , labels[batch_indices]</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+<h6 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h6><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e277f7fc67b3">torch.mul() 、 torch.mm() 及torch.matmul()的区别</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qsmx666/article/details/105783610">torch.matmul()用法介绍</a></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E4%BA%8Epytorch%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%87%BD%E6%95%B0%E7%9A%84%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">关于pytorch中的一些函数的笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-torch-mul-mm-matlmul-bmm-%E7%AD%89%E5%8C%BA%E5%88%AB"><span class="toc-number">1.1.</span> <span class="toc-text">1.torch.mul &#x2F; mm &#x2F; matlmul &#x2F; bmm 等区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-random-shuffle%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.</span> <span class="toc-text">2.random.shuffle函数</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-number">1.2.0.0.0.1.</span> <span class="toc-text">参考文章</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>
