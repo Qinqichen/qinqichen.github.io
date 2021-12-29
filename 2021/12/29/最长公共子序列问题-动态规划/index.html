@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>最长公共子序列问题-动态规划 - 个人博客</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="qqc,"> 
+    <meta name="description" content="于世间争渡,最长公共子序列问题-动态规划一个给定序列的子序列是在该序列中删去若干元素后得到的序列。确切地说，若给定序列X={x1,x2,…,xm}，则另一序列Z={z1, z2,…,zk}，是X的子序列是指存在,"> 
+    <meta name="author" content="秦琦琛"> 
+    <link rel="alternative" href="atom.xml" title="个人博客" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">个人博客</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://qinqichen.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">最长公共子序列问题-动态规划</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">最长公共子序列问题-动态规划</h1>
+        <div class="stuff">
+            <span>十二月 29, 2021</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <h2 id="最长公共子序列问题-动态规划"><a href="#最长公共子序列问题-动态规划" class="headerlink" title="最长公共子序列问题-动态规划"></a>最长公共子序列问题-动态规划</h2><p>一个给定序列的子序列是在该序列中删去若干元素后得到的序列。确切地说，若给定序列X={x1,x2,…,xm}，则另一序列Z={z1, z2,…,zk}，是X的子序列是指存在一个严格递增下标序列{i1, i2,…, ik}使得对于所有j=1,2,…, k，有: zj=xij。例如，序列Z={B,C, D,B}是序列X={A,B,C,B,D,A,B}的子序列，相应的递增下标序列为{2,3,5,7}。</p>
+<p>给定两个序列X和Y，当另一个序列Z既是X的子序列又是Y的子序列时，称Z是序列X和Y的公共子序列。</p>
+<p>例如，若X={A,B,C,B,D,A,B}，Y={B, D,C,A,B,A}，则序列{B,C,A}是X和Y的一个公共子序列，但它不是X和Y的一个最长公共子序列。序列{B,C,B,A}也是X和Y的一个公共子序列，其长度为4，而且它是X和Y的最长公共子序列，因为X和Y没有长度大于4的公共子序列。</p>
+<p> 穷举搜索法是最容易想到的算法，对X的所有子序列，检查它是否也是Y的子序列。从而确定它是否为X和Y的公共子序列。并且在检查过程中记录最长的公共子序列。X的所有子序列都检查过后即可求出X和Y的最长公共子序列。X的每个子序列相应于下标集{1,2, …,m}的一个子集，因此有2m个不同子序列，从而穷举搜索法需要指数时间。</p>
+<p>事实上，最长公共子序列问题具有最优子结构性质。</p>
+<p>设序列X={x1,x2, …, xm}和Y={y1,y2, …,yn}的最长公共子序列为Z={z1,z2, …,zk},则</p>
+<p>①若xm=yn， 则zk=xm=yn, 且Zk-1是Xm-1和Yn-1的最长公共子序列。</p>
+<p>②若xm≠yn,且zk≠xm，则Z是Xm-1 和Y的最长公共子序列。</p>
+<p>③若xm#yn且zk#yn，则Z是X和Yn-1的最长公共子序列。                                     其中，Xm-1={x1,x2, …，xm-1}，Yn-1={y1,y2, …，yn-1}，Zn-1={z1,z2, …，zk-1}。</p>
+<p>​    由最长公共子序列问题的最优子结构性质可知,要找出X={x1,x2,…,xm}和Y={y1, y2,…,yn}的最长公共子序列，可按以下方式递归地进行:</p>
+<p>1.当xm=yn,时，找出Xm-1和Yn-1的最长公共子序列，然后在其尾部加上xm (xm=yn)，即可得X和Y的最长公共子序列。</p>
+<p>2.当xm≠yn,时，必须解两个子问题，即找出Xm-1和Y的一个最长公共子序列及X和Yn-1的一个最长公共子序列。这两个公共子序列中较长者即为X和Y的最长公共子序列。</p>
+<p>​    由此递归结构容易看到，最长公共子序列问题具有子问题重叠性质，即计算Xm-1和Yn-1的最长公共子序列。</p>
+<p>​    首先建立子问题最优值的递归关系,用c[i][j]记录序列Xi和Yj的最长公共子序列的长度。其中，Xi={x1,x2,…,xi}:Yj={y1,y2,…,yj}，当i=0或j=0时，空序列是Xi和Yj的最长公共子序列。</p>
+<p>​    所以，此时c[i][j]=0。其他情况下，由最优子结构性质可建立递归关系如下:</p>
+<img src="D:\Edit\AllOfMyImages\Typora\image-20211228115331927.png" alt="image-20211228115331927" style="zoom:80%;" />
+
+
+
+<p><img src="D:\Edit\AllOfMyImages\Typora\image-20211228115357621.png" alt="image-20211228115357621"></p>
+<p><img src="D:\Edit\AllOfMyImages\Typora\image-20211228115408695.png" alt="image-20211228115408695"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">int **c 存放最长公共子序列长度</span></span><br><span class="line"><span class="comment">int **b 存放最长公共子序列 节点</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DP_Length</span><span class="params">(<span class="keyword">int</span> m,  <span class="keyword">int</span> n, <span class="keyword">char</span> *x, <span class="keyword">char</span> *y, <span class="keyword">int</span> **c, <span class="keyword">int</span> **b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i , j ;</span><br><span class="line">    <span class="keyword">for</span>( i = <span class="number">0</span> ; i &lt; m ; i ++ )&#123;</span><br><span class="line">        c[i][<span class="number">0</span>] = <span class="number">0</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>( j = <span class="number">0</span> ; j &lt; n ; j ++ )&#123;</span><br><span class="line">        c[<span class="number">0</span>][j] = <span class="number">0</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>( i = <span class="number">1</span> ; i &lt;= m ; i ++ )&#123;</span><br><span class="line">        <span class="keyword">for</span>( j = <span class="number">1</span> ; j &lt;= n ; j ++ )&#123;</span><br><span class="line">            <span class="keyword">if</span>( x[i] == y[j] )&#123;</span><br><span class="line">                c[i][j] = c[i<span class="number">-1</span>][j<span class="number">-1</span>] + <span class="number">1</span> ;</span><br><span class="line">                b[i][j] = <span class="number">1</span> ;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>( c[i<span class="number">-1</span>][j] &gt; c[i][j<span class="number">-1</span>] )&#123;</span><br><span class="line">                c[i][j] = c[i<span class="number">-1</span>][j] ;</span><br><span class="line">                b[i][j] = <span class="number">2</span> ;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                c[i][j] = c[i][j<span class="number">-1</span>] ;</span><br><span class="line">                b[i][j] = <span class="number">3</span> ;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Print_Length</span><span class="params">(<span class="keyword">int</span> i , <span class="keyword">int</span> j , <span class="keyword">char</span> *x , <span class="keyword">int</span> **b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>( i == <span class="number">0</span> || j == <span class="number">0</span> )&#123;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>( b[i][j] == <span class="number">1</span> )&#123;</span><br><span class="line">        <span class="built_in">Print_Length</span>(i<span class="number">-1</span>,j<span class="number">-1</span>,x,b);</span><br><span class="line">        cout&lt;&lt;x[i];</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>( b[i][j] == <span class="number">2</span> )&#123;</span><br><span class="line">        <span class="built_in">Print_Length</span>(i<span class="number">-1</span>,j,x,b);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">Print_Length</span>(i,j<span class="number">-1</span>,x,b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='false'
+        data-ci='ac5ba125b2459b3fbac3'
+        data-cs='44e43da263ee5b6c24702228094033b2ea98b844'
+        data-r='qinqichen.github.io'
+        data-o='qinqichen'
+        data-a='qinqichen'
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E5%BA%8F%E5%88%97%E9%97%AE%E9%A2%98-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="toc-number">1.</span> <span class="toc-text">最长公共子序列问题-动态规划</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>
