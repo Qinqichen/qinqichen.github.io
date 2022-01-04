@@ -340,7 +340,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-30 22:25:02" itemprop="dateModified" datetime="2021-12-30T22:25:02+08:00">2021-12-30</time>
+                <time title="修改时间：2022-01-04 18:16:04" itemprop="dateModified" datetime="2022-01-04T18:16:04+08:00">2022-01-04</time>
               </span>
 
           
@@ -356,30 +356,14 @@
       
           <h2 id="查找第K小问题-分治"><a href="#查找第K小问题-分治" class="headerlink" title="查找第K小问题-分治"></a>查找第K小问题-分治</h2><p>选择问题（select problem）是指在n个元素的集合中，选出某个元素值大小在集合中处于第k位的元素，即所谓的求第k小元素问题(kth-smallest)。 </p>
 <p>当k=1时，是求最小元素；而当k=n时，就是求最大元素；当k=(n+1)/2时，称为中位数。</p>
-<h3 id="一、分治法"><a href="#一、分治法" class="headerlink" title="一、分治法"></a>一、分治法</h3><p>假定经过一趟划分后，长度为n的原表被分成左右两个子表，其中，长度为p的左子表包括主元及其左边的元素，右子表包括主元右边的元素。那么：</p>
-<ul>
-<li>若k=p，则主元即为第k小元素；</li>
-<li>若k&lt;p ，第k小元素必定在左子表中，需求解的子问题成为在左子表中求第k小元素；</li>
-<li>若k&gt;p，则第k小元素必定在右子表中，需求解的子问题成为在右子表中求第k-p小元素。</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">SearchK</span><span class="params">(<span class="keyword">int</span> A[], <span class="keyword">int</span> left ,<span class="keyword">int</span> right , <span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(left &gt; right )</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span> ;</span><br><span class="line">    <span class="keyword">int</span> i = Partition(A,left,right);</span><br><span class="line">    <span class="keyword">int</span> p = i - left + <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span>( p == k )</span><br><span class="line">        <span class="keyword">return</span> A[k];</span><br><span class="line">    <span class="keyword">if</span>( k &lt; p )&#123;</span><br><span class="line">        <span class="keyword">return</span> SearchK(A,left,p,k);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> SearchK(A,p+<span class="number">1</span>,right,k-p);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Partition</span><span class="params">(<span class="keyword">int</span> A[], <span class="keyword">int</span> left ,<span class="keyword">int</span> right)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> priot = A[left] ;</span><br><span class="line">    <span class="keyword">int</span> i = left , j = right ;</span><br><span class="line">    <span class="keyword">while</span>(i &lt; j )&#123;</span><br><span class="line">        <span class="keyword">while</span>( A[j] &gt; priot)&#123;</span><br><span class="line">            j-- ;</span><br><span class="line">        &#125;</span><br><span class="line">        A[i] = A[j] ;</span><br><span class="line">        <span class="keyword">while</span>( A[i] &lt; priot )&#123;</span><br><span class="line">            i++ ;</span><br><span class="line">        &#125;</span><br><span class="line">        A[j] = A[i] ;</span><br><span class="line">    &#125;</span><br><span class="line">    A[i] = priot ;</span><br><span class="line">    <span class="keyword">return</span> i ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(n)                  最坏情况下：O(n^2)</p>
-<h3 id="二、分治法的进一步加深"><a href="#二、分治法的进一步加深" class="headerlink" title="二、分治法的进一步加深"></a>二、分治法的进一步加深</h3><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202112292327556.png" alt="image-20211226213017613" style="zoom:80%;" />
-
-<p>对n个元素进行分组，M序列是由每组的中位数组成。中间粉色的就是m*</p>
-<img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202112292328520.png" alt="image-20211226213223263" style="zoom:80%;" />
-
-<p>通过与m*进行比较，将所有元素划分为四个区域。</p>
-<p>A、D中的元素分别与m*进行比较，将元素分别划到B、C集合中。</p>
-<img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202112292327781.png" alt="image-20211226213527422" style="zoom:80%;" />
-
-<p>如上图所示，最后将元素分成两个集合，并以m*作为划分点。</p>
-<img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202112292327743.png" alt="image-20211226213722007" style="zoom:80%;" />
-
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">SelectK</span><span class="params">(<span class="keyword">int</span> S[], <span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/12/29/%E6%9F%A5%E6%89%BE%E7%AC%ACK%E5%B0%8F%E9%97%AE%E9%A2%98-%E5%88%86%E6%B2%BB%E6%80%9D%E6%83%B3/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -421,10 +405,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-12-29 21:18:52 / 修改时间：23:30:14" itemprop="dateCreated datePublished" datetime="2021-12-29T21:18:52+08:00">2021-12-29</time>
+              <time title="创建时间：2021-12-29 21:18:52" itemprop="dateCreated datePublished" datetime="2021-12-29T21:18:52+08:00">2021-12-29</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-04 18:17:01" itemprop="dateModified" datetime="2022-01-04T18:17:01+08:00">2022-01-04</time>
+              </span>
 
           
 
@@ -439,28 +429,14 @@
       
           <h2 id="最长公共子序列问题-动态规划"><a href="#最长公共子序列问题-动态规划" class="headerlink" title="最长公共子序列问题-动态规划"></a>最长公共子序列问题-动态规划</h2><p>一个给定序列的子序列是在该序列中删去若干元素后得到的序列。确切地说，若给定序列X={x1,x2,…,xm}，则另一序列Z={z1, z2,…,zk}，是X的子序列是指存在一个严格递增下标序列{i1, i2,…, ik}使得对于所有j=1,2,…, k，有: zj=xij。例如，序列Z={B,C, D,B}是序列X={A,B,C,B,D,A,B}的子序列，相应的递增下标序列为{2,3,5,7}。</p>
 <p>给定两个序列X和Y，当另一个序列Z既是X的子序列又是Y的子序列时，称Z是序列X和Y的公共子序列。</p>
-<p>例如，若X={A,B,C,B,D,A,B}，Y={B, D,C,A,B,A}，则序列{B,C,A}是X和Y的一个公共子序列，但它不是X和Y的一个最长公共子序列。序列{B,C,B,A}也是X和Y的一个公共子序列，其长度为4，而且它是X和Y的最长公共子序列，因为X和Y没有长度大于4的公共子序列。</p>
-<p> 穷举搜索法是最容易想到的算法，对X的所有子序列，检查它是否也是Y的子序列。从而确定它是否为X和Y的公共子序列。并且在检查过程中记录最长的公共子序列。X的所有子序列都检查过后即可求出X和Y的最长公共子序列。X的每个子序列相应于下标集{1,2, …,m}的一个子集，因此有2m个不同子序列，从而穷举搜索法需要指数时间。</p>
-<p>事实上，最长公共子序列问题具有最优子结构性质。</p>
-<p>设序列X={x1,x2, …, xm}和Y={y1,y2, …,yn}的最长公共子序列为Z={z1,z2, …,zk},则</p>
-<p>①若xm=yn， 则zk=xm=yn, 且Zk-1是Xm-1和Yn-1的最长公共子序列。</p>
-<p>②若xm≠yn,且zk≠xm，则Z是Xm-1 和Y的最长公共子序列。</p>
-<p>③若xm#yn且zk#yn，则Z是X和Yn-1的最长公共子序列。                                     其中，Xm-1={x1,x2, …，xm-1}，Yn-1={y1,y2, …，yn-1}，Zn-1={z1,z2, …，zk-1}。</p>
-<p>​    由最长公共子序列问题的最优子结构性质可知,要找出X={x1,x2,…,xm}和Y={y1, y2,…,yn}的最长公共子序列，可按以下方式递归地进行:</p>
-<p>1.当xm=yn,时，找出Xm-1和Yn-1的最长公共子序列，然后在其尾部加上xm (xm=yn)，即可得X和Y的最长公共子序列。</p>
-<p>2.当xm≠yn,时，必须解两个子问题，即找出Xm-1和Y的一个最长公共子序列及X和Yn-1的一个最长公共子序列。这两个公共子序列中较长者即为X和Y的最长公共子序列。</p>
-<p>​    由此递归结构容易看到，最长公共子序列问题具有子问题重叠性质，即计算Xm-1和Yn-1的最长公共子序列。</p>
-<p>​    首先建立子问题最优值的递归关系,用c[i][j]记录序列Xi和Yj的最长公共子序列的长度。其中，Xi={x1,x2,…,xi}:Yj={y1,y2,…,yj}，当i=0或j=0时，空序列是Xi和Yj的最长公共子序列。</p>
-<p>​    所以，此时c[i][j]=0。其他情况下，由最优子结构性质可建立递归关系如下:</p>
-<img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202112292155611.png" alt="image-20211228115331927" style="zoom:80%;" />
-
-
-
-<p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202112292155152.png" alt="image-20211228115357621"></p>
-<p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202112292155764.png" alt="image-20211228115408695"></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">int **c 存放最长公共子序列长度</span></span><br><span class="line"><span class="comment">int **b 存放最长公共子序列 节点</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DP_Length</span><span class="params">(<span class="keyword">int</span> m,  <span class="keyword">int</span> n, <span class="keyword">char</span> *x, <span class="keyword">char</span> *y, <span class="keyword">int</span> **c, <span class="keyword">int</span> **b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i , j ;</span><br><span class="line">    <span class="keyword">for</span>( i = <span class="number">0</span> ; i &lt; m ; i ++ )&#123;</span><br><span class="line">        c[i][<span class="number">0</span>] = <span class="number">0</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>( j = <span class="number">0</span> ; j &lt; n ; j ++ )&#123;</span><br><span class="line">        c[<span class="number">0</span>][j] = <span class="number">0</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>( i = <span class="number">1</span> ; i &lt;= m ; i ++ )&#123;</span><br><span class="line">        <span class="keyword">for</span>( j = <span class="number">1</span> ; j &lt;= n ; j ++ )&#123;</span><br><span class="line">            <span class="keyword">if</span>( x[i] == y[j] )&#123;</span><br><span class="line">                c[i][j] = c[i<span class="number">-1</span>][j<span class="number">-1</span>] + <span class="number">1</span> ;</span><br><span class="line">                b[i][j] = <span class="number">1</span> ;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>( c[i<span class="number">-1</span>][j] &gt; c[i][j<span class="number">-1</span>] )&#123;</span><br><span class="line">                c[i][j] = c[i<span class="number">-1</span>][j] ;</span><br><span class="line">                b[i][j] = <span class="number">2</span> ;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                c[i][j] = c[i][j<span class="number">-1</span>] ;</span><br><span class="line">                b[i][j] = <span class="number">3</span> ;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Print_Length</span><span class="params">(<span class="keyword">int</span> i , <span class="keyword">int</span> j , <span class="keyword">char</span> *x , <span class="keyword">int</span> **b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>( i == <span class="number">0</span> || j == <span class="number">0</span> )&#123;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>( b[i][j] == <span class="number">1</span> )&#123;</span><br><span class="line">        <span class="built_in">Print_Length</span>(i<span class="number">-1</span>,j<span class="number">-1</span>,x,b);</span><br><span class="line">        cout&lt;&lt;x[i];</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>( b[i][j] == <span class="number">2</span> )&#123;</span><br><span class="line">        <span class="built_in">Print_Length</span>(i<span class="number">-1</span>,j,x,b);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">Print_Length</span>(i,j<span class="number">-1</span>,x,b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/12/29/%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E5%BA%8F%E5%88%97%E9%97%AE%E9%A2%98-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -510,7 +486,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-30 22:40:27" itemprop="dateModified" datetime="2021-12-30T22:40:27+08:00">2021-12-30</time>
+                <time title="修改时间：2022-01-04 18:16:55" itemprop="dateModified" datetime="2022-01-04T18:16:55+08:00">2022-01-04</time>
               </span>
 
           
@@ -525,51 +501,14 @@
 
       
           <h2 id="数组排序"><a href="#数组排序" class="headerlink" title="数组排序"></a>数组排序</h2><p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202112302239339.png" alt="img"></p>
-<h3 id="一、冒泡排序"><a href="#一、冒泡排序" class="headerlink" title="一、冒泡排序"></a>一、冒泡排序</h3><p>将数组中的相邻两个元素进行比较，将比较大（较小）的数通过两两比较移动到数组末尾（开始），执行一遍内层循环，确定一个最大（最小）的数，外层循环从数组末尾（开始）遍历到开始（末尾）。</p>
-<p>每一趟均将一个数值放在最终位置。并且之后，该数值不再参与排序。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BubbleSort</span><span class="params">(<span class="keyword">int</span> A[] , <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> temp ;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt; n  ; i ++ )&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ; j &lt; n - i ; j ++ )&#123;</span><br><span class="line">            <span class="keyword">if</span>( A[j] &gt; A[j+<span class="number">1</span>] )&#123; <span class="comment">//大的数字后移</span></span><br><span class="line">                temp = A[j] ;</span><br><span class="line">                A[j] = A[j+<span class="number">1</span>] ;</span><br><span class="line">                A[j+<span class="number">1</span>] = temp ;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(n^2)</p>
-<p>空间复杂度：O(1)</p>
-<p>稳定排序</p>
-<h3 id="二、选择排序"><a href="#二、选择排序" class="headerlink" title="二、选择排序"></a>二、选择排序</h3><p>将要排序的数组分成两部分，一部分有序的，一部分是无序的，从无序的部分取出最值放到已经排序的最后。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SelectSort</span><span class="params">(<span class="keyword">int</span> A[] , <span class="keyword">int</span> n )</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> temp = <span class="number">0</span> ;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; n - <span class="number">1</span> ; i ++ )&#123;</span><br><span class="line">        <span class="keyword">int</span> min = i ;</span><br><span class="line">        <span class="comment">//找出后续数组中最小的值</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i + <span class="number">1</span> ; j &lt; n ; j ++ )&#123;   </span><br><span class="line">            <span class="keyword">if</span>( A[min] &gt; A[j])</span><br><span class="line">                min = j ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//交换位置</span></span><br><span class="line">        <span class="keyword">if</span>( min != i )&#123;</span><br><span class="line">            temp = A[min] ;</span><br><span class="line">            A[min] = A[i] ;</span><br><span class="line">            A[i] = temp ;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(n^2)</p>
-<p>空间复杂度：O(1)</p>
-<p>不稳定排序</p>
-<h3 id="三、插入排序"><a href="#三、插入排序" class="headerlink" title="三、插入排序"></a>三、插入排序</h3><p>将要排序的数组分成两部分，每次从后面的部分取出索引最小的元素插入到前一部分的适当位置。</p>
-<p>存在大量的移动操作。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InsertSort</span><span class="params">(<span class="keyword">int</span> A[] , <span class="keyword">int</span> n )</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> temp = <span class="number">0</span> ;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt; n ; i ++ )&#123;</span><br><span class="line">        temp = A[i] ;</span><br><span class="line">        <span class="keyword">int</span> j = i - <span class="number">1</span> ;</span><br><span class="line">        <span class="keyword">while</span>(j &gt;= <span class="number">0</span> &amp;&amp; temp &lt; A[j])&#123;</span><br><span class="line">            A[j+<span class="number">1</span>] = A[j] ;</span><br><span class="line">        	j -- ;</span><br><span class="line">        &#125;</span><br><span class="line">        A[j+<span class="number">1</span>] = temp ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(n^2)</p>
-<p>空间复杂度：O(1)</p>
-<p>稳定排序</p>
-<h3 id="四、快速排序"><a href="#四、快速排序" class="headerlink" title="四、快速排序"></a>四、快速排序</h3><p>快速排序法号称是目前最优秀的算法之一，实现思路是，将一个数组的排序问题看成是两个小数组的排序问题，而每个小的数组又可以继续看成更小的两个数组，一直递归下去，直到数组长度大小最大为2。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QuickSort</span><span class="params">(<span class="keyword">int</span> A[] , <span class="keyword">int</span> left , <span class="keyword">int</span> right )</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(left &lt; right )&#123;</span><br><span class="line">        <span class="keyword">int</span> i = left , j = right ;</span><br><span class="line">        <span class="keyword">int</span> priot = A[i] ;</span><br><span class="line">        <span class="keyword">while</span>( i &lt; j )&#123;</span><br><span class="line">            <span class="keyword">while</span>( A[j] &gt; priot )&#123;</span><br><span class="line">                j -- ;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span>( A[i] &lt; priot )&#123;</span><br><span class="line">                i ++ ;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> temp = A[j] ;</span><br><span class="line">            A[j] = A[i] ;</span><br><span class="line">            A[i] = temp ;</span><br><span class="line">        &#125;</span><br><span class="line">        A[i] = priot ;</span><br><span class="line">        QuickSort(A , left , i<span class="number">-1</span> );</span><br><span class="line">        QuickSort(A , i+<span class="number">1</span> , right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(n·logN)                         最差时间复杂度：O(n^2)</p>
-<p>空间复杂度：O(1)</p>
-<p>不稳定排序</p>
-<h3 id="五、桶排序"><a href="#五、桶排序" class="headerlink" title="五、桶排序"></a>五、桶排序</h3><p>桶中出现的数组元素都做个标记1，然后将桶数组中有1标记的元素依次打印。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BucketSort</span><span class="params">(<span class="keyword">int</span> A[] , <span class="keyword">int</span> n , <span class="keyword">int</span> max)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> bucket[max+<span class="number">1</span>] = &#123;<span class="number">0</span>&#125; ;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; n ; i ++ )&#123;</span><br><span class="line">        bucket[ A[i] ] ++ ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ; j &lt; max ; j ++ )&#123;</span><br><span class="line">        <span class="keyword">while</span>(bucket[j] &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,j) ;</span><br><span class="line">            bucket[j] -- ;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(n)</p>
-<p>空间复杂度：O(max(element))</p>
-<h3 id="六、希尔排序"><a href="#六、希尔排序" class="headerlink" title="六、希尔排序"></a>六、希尔排序</h3><p>性能最好的排序</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ShellSort</span><span class="params">(<span class="keyword">int</span> A[] , <span class="keyword">int</span> n )</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> interval = n/<span class="number">2</span> ;</span><br><span class="line">    <span class="keyword">while</span>( interval &gt; <span class="number">0</span> )&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = interval ; i &lt; n ; i ++ )&#123;</span><br><span class="line">            <span class="keyword">int</span> temp = A[interval] ; </span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = i - interval ; j &gt;=<span class="number">0</span> ; j -= interval )&#123;</span><br><span class="line">                <span class="keyword">if</span>( A[j] &gt; temp )&#123;</span><br><span class="line">                    A[j+interval] = A[j] ;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            A[j+interval] = temp ;</span><br><span class="line">  	  	&#125;</span><br><span class="line">        interval /=<span class="number">2</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(n·logn)</p>
-<p>空间复杂度：O(1)</p>
-<p>不稳定排序</p>
-<h3 id="七、归并排序"><a href="#七、归并排序" class="headerlink" title="七、归并排序"></a>七、归并排序</h3><p>归并排序（Merge Sort）是建立在归并操作上的一种有效，稳定的排序算法，该算法是采用分治法（Divide and Conquer）的一个非常典型的应用。将已有序的子序列合并，得到完全有序的序列；即先使每个子序列有序，再使子序列段间有序。若将两个有序表合并成一个有序表，称为二路归并。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MergeSort</span><span class="params">(<span class="keyword">int</span> A[] , <span class="keyword">int</span> left, <span class="keyword">int</span> right )</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(left &gt;= right )</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> mid = (left + right)/<span class="number">2</span> ;</span><br><span class="line">    </span><br><span class="line">    MergeSort(A,left,mid);</span><br><span class="line">    MergeSort(A,mid+<span class="number">1</span>,right);</span><br><span class="line">    Merge(A,left,right,mid);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Merge</span><span class="params">(<span class="keyword">int</span> A[] , <span class="keyword">int</span> left ,<span class="keyword">int</span> right , <span class="keyword">int</span> mid )</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> B[right-left + <span class="number">1</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> i = left , j = mid+<span class="number">1</span> ;</span><br><span class="line">    <span class="keyword">int</span> k = <span class="number">0</span> ;</span><br><span class="line">    <span class="keyword">while</span>( i&lt;=mid &amp;&amp; j&lt;=right )&#123;</span><br><span class="line">        <span class="keyword">if</span>(A[i] &lt; A[j])&#123;</span><br><span class="line">            B[k++] = A[i++] ;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            B[k++] = A[j++] ;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;=mid)&#123;</span><br><span class="line">        B[k++] = A[i++];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(j&lt;=right)&#123;</span><br><span class="line">        B[k++] = A[j++];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(n·logn)</p>
-<p>空间复杂度：O(n)</p>
-<p>稳定排序</p>
-<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>以上总结可能存在错误，望指正。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/12/29/%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -619,7 +558,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-26 14:24:33" itemprop="dateModified" datetime="2021-12-26T14:24:33+08:00">2021-12-26</time>
+                <time title="修改时间：2022-01-04 18:16:45" itemprop="dateModified" datetime="2022-01-04T18:16:45+08:00">2022-01-04</time>
               </span>
 
           
@@ -636,78 +575,14 @@
           <h2 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h2><p>附上软考官网</p>
 <p><a target="_blank" rel="noopener" href="https://www.ruankao.org.cn/">中国计算机技术职业资格网https://www.ruankao.org.cn/</a></p>
 <p>官网上的信息非常全面。如果报名时间过了，可以跨省报考，我中级就是跨省考的。报名前需要打电话询问。</p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>尽信书不如无书    </p>
-<p>具体问题具体分析</p>
-<p>建议不要向我学习，我是被逼无奈才剩七天</p>
-</blockquote>
-<p>不搞虚头八脑的卖课卖资料，全是干货！！</p>
-<p>软考复习的方式多种多样，因人而异。此篇文章教你如何像我一样，七天速通软考高级系统架构师。</p>
-<p>ps：我不买课不报班的原因是没钱。</p>
-<p>首先，把飘过的成绩晒一下。（速通考证，分数不高）</p>
-<p>软考中级考两科，高级考三科。基本都是满分75，45分（含45）以上就过了。据我所知，除2016年有一个类型的一门科目改成了50分外，历年都是45分。</p>
-<p>不推荐报考初级软考，建议从中级开始考，一是练手，二是保底。</p>
-<img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202112221731861.png" alt="image-20211222161225450" style="zoom:67%;" />
-
-<p>2021年上半年，参加了中级软件设计师的考试。以为很难，就准备了一个月左右，期间还某多多买了一本教材书（又厚又臭，完全浪费）。B站随便找了个教程看了看，感觉收获不大，于是就刷真题，大概刷了近4年，有8套卷子，选择稳定55分以上，简答题同样，于是考试通过。</p>
-<img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202112221734318.png" alt="image-20211222161645891" style="zoom:67%;" />
-
-<p>上半年考的那么顺，就顺手报名了下半年的系统架构师。下文着重介绍如何速通。</p>
-<h3 id="前提："><a href="#前提：" class="headerlink" title="前提："></a>前提：</h3><p>本人基础概述：本科末流211，软工专业，408的四门课都有涉猎。</p>
-<h3 id="资料篇"><a href="#资料篇" class="headerlink" title="资料篇"></a>资料篇</h3><p>资料这方面其实并不是很多，主要还是自己刷题，自己总结，最后背诵。</p>
-<h4 id="视频资料"><a href="#视频资料" class="headerlink" title="视频资料"></a>视频资料</h4><p>B站资料挺全的，白嫖一个完全ok，我当时没看完，感觉拖沓冗长，看客随心。</p>
-<h4 id="书籍资料"><a href="#书籍资料" class="headerlink" title="书籍资料"></a>书籍资料</h4><p>放弃吧，官方的太烂了。非官方的又拿不准，所以，书籍可以放弃。</p>
-<h4 id="APP等答题应用"><a href="#APP等答题应用" class="headerlink" title="APP等答题应用"></a>APP等答题应用</h4><p>首推希赛的答题App，我个人就是用它过的中级与高级。它会提供历年的真题。除了最近一次的真题收费外，其余均免费，并且提供比较详细的解答，真心推荐。收费的就不看，秉着白嫖的思想，使用它，至于报不报班，随意。</p>
-<p>附一张当前版本的APP图标。</p>
-<img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202112221734980.png" alt="image-20211222163419068" style="zoom: 33%;" />
-
-<p>下面的这个软考题库就是，ios跟安卓都有的。</p>
-<p>注册后可能会有工作人员加你微信啥的，不用管。</p>
-<p>没收推广费。</p>
-<h4 id="第三方PDF等资料"><a href="#第三方PDF等资料" class="headerlink" title="第三方PDF等资料"></a>第三方PDF等资料</h4><p>我从上面说的这个App里，下载了几个免费的pdf，感觉还不错，可以打印下载，考前过一下知识点。</p>
-<h3 id="考试重点"><a href="#考试重点" class="headerlink" title="考试重点"></a>考试重点</h3><h4 id="选择题"><a href="#选择题" class="headerlink" title="选择题"></a>选择题</h4><p>关键：<strong>杂</strong></p>
-<p>基本没有重点，又或者全是重点。类型太广泛了，以至于我本身也是能保持50分就好，不求高分。</p>
-<p>以下几点不分重点及非重点顺序，想起什么补充什么。</p>
-<ol>
-<li>法律题、产权题，必须拿下，基本以侵权、纠纷之类为主，关于什么公司、政府、个人之间的什么关系啥的考的不多。</li>
-<li>多做几套选择题，里面的概念题必须拿下。没什么技巧，就是简单的背诵。</li>
-<li>23种设计模式，其实常考的就五六个，大概有五六分，很简单，必须拿下。单例、工厂、<strong>桥接</strong>、<strong>适配器</strong>等，还有两三个忘了。</li>
-<li>数据结构的题不是很多，表树基本没有，一般有个带权图的问题，三分左右。</li>
-<li>计算机组成的题不少</li>
-<li>操作系统也有</li>
-<li>网络的题好多协议名称的题目。</li>
-<li>软件测试的题目也挺多</li>
-<li>架构类型的题目多，需要认真看看，近6年的真题里的架构题目整合一下，完全足以应付考试</li>
-<li>剩下的慢慢补充</li>
-</ol>
-<h4 id="简答题"><a href="#简答题" class="headerlink" title="简答题"></a>简答题</h4><p>关键：<strong>找规律</strong></p>
-<p>下午的简答题，不管中级还是高级，都是最简单，最没有难度的题目。跟小学生看图找不同一样，不需费力。</p>
-<p>答题流程：高级会给大概五道题，第一道题必做，后面四到选两道题目。</p>
-<p>第一题类型之后补充</p>
-<h6 id="我认为必选的两题；"><a href="#我认为必选的两题；" class="headerlink" title="我认为必选的两题；"></a>我认为必选的两题；</h6><p><strong>选题一</strong>：必选数据流图，原因：看图抄字。</p>
-<p>胆大心细，可以冲满分25。具体过程，后续补充。</p>
-<p><strong>选题二</strong>：必选补充架构图的题，原因：简单，适合了解技术，但不会用的人。</p>
-<p>从顶层应用，到底层存储的分类问题罢了。中间的就算没背过，看着哪个合适，填就行了，至于分析题啥的，浅显大概的说说就行了，反正不用代码实操。</p>
-<h4 id="论文"><a href="#论文" class="headerlink" title="论文"></a>论文</h4><p>关键：<strong>背诵</strong></p>
-<p>论文答题：给四五个题目以及背景，论某技术或者某应用。</p>
-<p>题目：    </p>
-<p>1.概要叙述你的项目，以及你承担的责任</p>
-<p>2.某某某技术的概念，优点啥的，简要描述</p>
-<p>3.结合你的项目，谈谈某某某技术怎么应用的，效果如何，后续如何等等</p>
-<p>题目基本是这个类型。</p>
-<p>开头写个摘要，大概不到300字。不要怕，可以在正文里重新润色再写一遍，多加点限定词啥的凑字数。</p>
-<p>正文2500字，答题纸有标记的，超过两三行就ok了，也没必要写满。</p>
-<p>记得最后要总结下。</p>
-<p>我认为，国家考架构师，肯定会有一篇题目跟架构相关的题目，要么是架构的总览题目，要么是某一个架构单独拿出来考，不考的概率可以算是零，如果真不考，那。。。。</p>
-<p>我只准备了一篇论文的模板，那就是关于架构的，至于一篇具体的论文，我后续会发一篇。</p>
-<p>项目背景完全照搬，技术选型该有的有，不该有的删掉，并且把自己的平时背诵的一些常见的主流的技术加上。</p>
-<p>我当时选的题目是微服务架构。我不仅仅写了微服务，因为模板是总览架构风格的，所以我以微服务为主，插上了其他的架构，在原模板的基础上，添加了spring cloud技术，以及考前临时看的阿里的dubbo框架，为了凑字数，甚至写出了“阿里巴巴旗下的优秀开源框架Dubbo，它能非常优秀的什么什么·······”。</p>
-<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>200块钱而已，过了就是赚了，不过再来呗。</p>
-<p>网上说是通过率很低，其实很高，毕竟缺考的就占了一半。官方说20%通过率，10个人才两个人通过，实际却是五个人就有两个人通过。跟中级差不多。</p>
-<blockquote>
-<p>纸上得来终觉浅，绝知此事要躬行</p>
-</blockquote>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/12/21/%E4%B8%83%E5%A4%A9%E9%80%9F%E9%80%9A%E8%BD%AF%E8%80%83%E9%AB%98%E7%BA%A7%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%B8%88/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -749,10 +624,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-12-15 20:30:46 / 修改时间：20:34:28" itemprop="dateCreated datePublished" datetime="2021-12-15T20:30:46+08:00">2021-12-15</time>
+              <time title="创建时间：2021-12-15 20:30:46" itemprop="dateCreated datePublished" datetime="2021-12-15T20:30:46+08:00">2021-12-15</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-04 18:16:38" itemprop="dateModified" datetime="2022-01-04T18:16:38+08:00">2022-01-04</time>
+              </span>
 
           
 
@@ -767,12 +648,14 @@
       
           <p>解决了我多日以来的问题，下面的权限设置是可以解决这个问题的。</p>
 <p>——</p>
-<p>如果想要删除cygwin发现还删除不掉，以下是花了半天才研究出来的办法</p>
-<p>D:\cygwin文件夹终于从硬盘清除了。这是一个非常难删除的文件夹，因为它的权限被什么用户设置了，连administrator都无法完全控制它。针对这个文件夹里的每一个子文件夹，解决步骤如下：</p>
-<p>1）打开文件夹属性，取消只读属性，打开文件夹的高级安全设置，将所有者更改为administrators，并替换子容器及对象的所有者，权限选项卡里里勾选“从父项继承那些可以应用到子对象的权限项目，包括那些在此明确定义的项目”和“用在此显示的可以应用到子对象的项目替代所有子对象的权限项目”，点确定，将更改应用于该文件夹、子文件夹和文件，出现无法更改文件属性的提示时，选择全部忽略，关闭文件夹属性窗口。</p>
-<p>2）再次打开文件夹属性，取消只读属性，切换到安全选项卡，将所有组和用户的权限设置为允许完全控制，点确定，将更改应用于该文件夹、子文件夹和文件，关闭属性窗口，至此，文件夹就可以顺利删除了。</p>
-<p>作者：droxy<br>链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/ef14ad4aebec">https://www.jianshu.com/p/ef14ad4aebec</a><br>来源：简书<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/12/15/%E8%A7%A3%E5%86%B3window%E4%B8%8Bcygwin%E6%97%A0%E6%B3%95%E5%88%A0%E9%99%A4%E7%9A%84%E9%97%AE%E9%A2%98/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -814,10 +697,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-12-09 18:57:45 / 修改时间：20:35:36" itemprop="dateCreated datePublished" datetime="2021-12-09T18:57:45+08:00">2021-12-09</time>
+              <time title="创建时间：2021-12-09 18:57:45" itemprop="dateCreated datePublished" datetime="2021-12-09T18:57:45+08:00">2021-12-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-04 18:16:49" itemprop="dateModified" datetime="2022-01-04T18:16:49+08:00">2022-01-04</time>
+              </span>
 
           
 
@@ -834,40 +723,14 @@
 <p>今天由于英语课上的一篇小论文（Why people do work？）而搜了下这个问题，拜读了诸多前人的见解后，我对这个问题开始有了初步的理解。</p>
 <p>在阅读文章【2】的时候，对作者从小孩方面的见解非常独到，我没有孩子，我可能还无法理解为人母的情感，但从孩子方面出发，我确实存在许多作者所列举的困惑。</p>
 </blockquote>
-<p>美国幽默大师罗伯特·奥本曾经这样回答一个问题：每天早晨打开报纸，如果百万富翁排行榜上还没有自己的名字，就去工作。</p>
-<p>工作，工作，还是工作……春节长假结束，每个人从各地风尘仆仆赶回自己工作岗位。相信很多人都会自问：我为什么要工作？是为了发财致富，还是仅仅为了养家糊口？我们好像并没有去思考这些与我们生活息息相关，但对我们来说又有着重要意义的问题。</p>
-<h3 id="1-工作是生存的需要"><a href="#1-工作是生存的需要" class="headerlink" title="1.工作是生存的需要"></a>1.工作是生存的需要</h3><p>工作的首要目标是为了谋生，这一点都没错。</p>
-<p>美国社会心理学家马斯洛创造性的提出了人的需求层次理论。他把人的各种需要分为五个层次，依次序上升:生理需要、安全需要、社交需要、尊重需要、自我实现的需要。</p>
-<blockquote>
-<p>1）通过工作，我们有收入，能够养活自己，保障生活，还能出去休闲旅行。</p>
-<p>2）只要长期工作，就会一直有收入。所以，工作不仅能保障目前的生活，还能保障未来的生活。</p>
-<p>3）如果能与职场中的同事互帮互助，还能收获良好的人际关系。换句话说，就是达至“人和”。</p>
-<p>4）通过勤劳肯干赢得他人或企业的认可，不断晋升，可以获得自我成就感。</p>
-<p>5）通过工作，个人实力和心灵都能得到成长，收获成长的喜悦和价值感。</p>
-<p>6）通过自身的工作可以给客户或地方社会做出贡献，赢得他人的感谢。</p>
-</blockquote>
-<p>根据马斯洛这一理论，我们不难看出，其中生理需要是人的各种需要中最基本、最强烈的一种，是对生存的基本需要。</p>
-<p>工作能让人获得生存所需的资源，让人免于饥饿和寒冷，获得安全。这是最强大的本能。</p>
-<p>工作才会有工资，有了工资才可以保证基本的、必须的生存需要。现实社会，芸芸众生，工资就是其工作的唯一目的和唯一动力，也是生存下去的唯一手段。因此，对于绝大多数人来说，工作的主要目的就是为了获取基本的工资、为了保障生存的权力。是因为生存的压力迫使他们不得不辛勤地、努力地去工作，这是很现实的。但我们想要进入马斯洛的下一层次，就必须要认识工作。</p>
-<h3 id="2-工作是双肩上的责任"><a href="#2-工作是双肩上的责任" class="headerlink" title="2.工作是双肩上的责任"></a>2.工作是双肩上的责任</h3><p>除了生存之外，每个人都还肩负着对家庭的责任，而工作的目的是为了获得报酬，满足生活的需要，承担自己对家庭的基本责任。人不能不工作，文化在日益进步，生活也日趋复杂，到处是义务、责任、恐惧和阻碍，这些东西不是由大自然产生出来的，而是由人类社会产生出来的。</p>
-<p>弗洛伊德在《文明及其不满》一书中提到：“如果是出于自由意志的选择，为了谋生而从事的日常工作会带来非比寻常的满足感。通过升华，工作能从个人喜好或直觉冲动中发掘潜力，这种原始力量，由于其内在原因要比寻常的力量来得更为强烈。”</p>
-<h3 id="3-工作是一种道德约束"><a href="#3-工作是一种道德约束" class="headerlink" title="3.工作是一种道德约束"></a>3.工作是一种道德约束</h3><p>许多富有的人却不辞辛劳地做着他的一份工作，因为他们认为工作是道德上的要求。今天大多数人仍然认为并相信工作是一种美德。在我们身边，很多家财万贯的家长并不一定要求子女去卧薪尝胆、筚路蓝缕，以便将来某一天继承自己的事业，但也会坚持把孩子送到某部门，某企业去工作。他们所图的当然不是那点工资收入，而是有一份正经的差事，一种向好向善的环境，至少孩子不容易学坏。</p>
-<p>与之相反，身边更多的传奇，是大城市边缘因为拆迁暴富的村民们，守着n套住房，衣食无忧，却开着宝马去拉黑活，在法律边缘疯狂试探，甚至伸出了一条腿。原因是什么？</p>
-<p>你可能会说村民没文化、自制力不足等等理由。但不可否认的是，他们不想勤勤恳恳的干正经工作了，只想投机倒把的搞快钱。远离正经工作，无异于踏入堕落的深渊。<del>题外话：我并不认为电竞、直播、网红等是正经工作。</del></p>
-<p>那么，工作是一种道德约束吗？</p>
-<h3 id="4-工作可以实现自身价值与社会理想"><a href="#4-工作可以实现自身价值与社会理想" class="headerlink" title="4.工作可以实现自身价值与社会理想"></a>4.工作可以实现自身价值与社会理想</h3><p>每一个人都有自己的追求。</p>
-<p>要知道，人来到这个世界，不是为了浑浑噩噩、稀里糊涂地度过此生，为的是要体现自己的人生价值，发挥出自己的本色，做一个最好的自己。</p>
-<p>没有人愿意虚度一生，谁都希望自己的生命充实美满，富有意义。进取之心，人皆有之。可是岁月流逝，越来越多的人失去了斗志和激情。当正处在人生的创造时期的人们，又怎能失去进取之心，失去激情，麻木不仁地度过此生呢？</p>
-<p>对于大多数人来说，很难去想象自己的工作与人类福祉、民族兴亡等宏大叙事之间存在着什么显著的关联。人们在意的是工作的本来面目。今天，人们的个体意识早已兴起，自我价值实现是人生的最重要目标，而人又是社会的动物，工作正好搭起了这座桥梁。在社会中实现自我价值是工作的目的，而工作是人与环境沟通，加入社会最普通且最好的方式。</p>
-<h3 id="5-工作意味着那份幸福感和希望还在：明天会更好"><a href="#5-工作意味着那份幸福感和希望还在：明天会更好" class="headerlink" title="5.工作意味着那份幸福感和希望还在：明天会更好"></a>5.工作意味着那份幸福感和希望还在：明天会更好</h3><p>工作是辛苦的，是有压力的，充满了各种酸甜苦辣，需要操心，需要投入，需要耗费心力，会白头发，甚至会积劳成疾，但是人们还是那样投入的进行工作，因为人们同时也在享受着工作所带来的幸福感和安全感。人们得到一个关于希望的承诺，只要继续努力工作，明天就会比今天好，明年就会比今年好。尽管只是暗示，但它意义重大。这不仅涉及个人的安全感，也涉及社会的安全感。</p>
-<p>与工作所能带来的的幸福感和希望相比，不工作的空虚、恐惧与绝望，谁也不能接受。</p>
-<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>本篇文章主要以【1】中的内容为主，四舍五入为转载。</p>
-<p>我当前作为一名读书人，一向认为我的工作就是学习，在学校，向老师、向书本、向实践学习；在校外，向同侪、向社会、向老人学习。学习，是一件贯穿人的一生所不可抛弃的爱好。</p>
-<h6 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h6><ol>
-<li><a target="_blank" rel="noopener" href="https://news.ifeng.com/opinion/special/gongzuo/">我们为什么要工作？</a></li>
-<li><a target="_blank" rel="noopener" href="https://qinhua.blog.caixin.com/archives/190923">如果孩子问你：“人为什么要工作？”</a></li>
-</ol>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/12/09/%E4%BA%BA%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%B7%A5%E4%BD%9C%EF%BC%9F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -909,10 +772,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-12-09 00:08:02 / 修改时间：18:58:16" itemprop="dateCreated datePublished" datetime="2021-12-09T00:08:02+08:00">2021-12-09</time>
+              <time title="创建时间：2021-12-09 00:08:02" itemprop="dateCreated datePublished" datetime="2021-12-09T00:08:02+08:00">2021-12-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-04 18:16:22" itemprop="dateModified" datetime="2022-01-04T18:16:22+08:00">2022-01-04</time>
+              </span>
 
           
 
@@ -925,31 +794,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="1-torch-mul-mm-matlmul-bmm-等区别"><a href="#1-torch-mul-mm-matlmul-bmm-等区别" class="headerlink" title="1.torch.mul / mm / matlmul / bmm 等区别"></a>1.torch.mul / mm / matlmul / bmm 等区别</h2><p>1、torch.mul(a, b)是矩阵a和b对应位相乘，a和b的维度必须相等，比如a的维度是(1, 2)，b的维度是(1, 2)，返回的仍是(1, 2)的矩阵；<br> 2、torch.mm(a, b)是矩阵a和b矩阵相乘，比如a的维度是(1, 2)，b的维度是(2, 3)，返回的就是(1, 3)的矩阵。</p>
-<p>3.torch.bmm()强制规定维度和大小相同，torch.bmm()是tensor中的一个相乘操作，类似于矩阵中的A*B。</p>
-<p>4.torch.matmul()没有强制规定维度和大小，可以用利用广播机制进行不同维度的相乘操作</p>
-<p>当进行操作的两个tensor都是3D时，两者等同。</p>
-<p>当输入是都是二维时，就是普通的矩阵乘法，和tensor.mm函数用法相同。<br><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202112090108046.png" alt="在这里插入图片描述"></p>
-<p>当输入有多维时，把多出的一维作为batch提出来，其他部分做矩阵乘法。<br><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202112090108511.png" alt="在这里插入图片描述">。</p>
-<p>下面看一个两个都是3维的例子。<br><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202112090108748.png" alt="在这里插入图片描述">。</p>
-<p>将b的第0维1broadcast成2提出来，后两维做矩阵乘法即可。<br>再看一个复杂一点的，是官网的例子。<br><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202112090108901.png" alt="在这里插入图片描述">。</p>
-<h2 id="2-random-shuffle函数"><a href="#2-random-shuffle函数" class="headerlink" title="2.random.shuffle函数"></a>2.random.shuffle函数</h2><p>在设置好batch后，需要随机抽取，那么可以对数据总量进行获取，并生成一个list，通过random.shuffle(list) 打乱序号，以进行随机抽取</p>
-<p>random.shuffle(list ): 功能就是打乱list中元素的顺序</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">data_iter</span>(<span class="params">batch_size,features,labels</span>):</span></span><br><span class="line">  num_examples = <span class="built_in">len</span>(features)</span><br><span class="line">  indices = <span class="built_in">list</span>(<span class="built_in">range</span>(num_examples))</span><br><span class="line">  random.shuffle(indices)</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,num_examples , batch_size):</span><br><span class="line">    batch_indices = torch.tensor(indices[i:<span class="built_in">min</span>(i+batch_size,num_examples - i * batch_size)])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">yield</span> features[batch_indices] , labels[batch_indices]</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-
-
-
-<h6 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h6><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e277f7fc67b3">torch.mul() 、 torch.mm() 及torch.matmul()的区别</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qsmx666/article/details/105783610">torch.matmul()用法介绍</a></p>
-
+          <h2 id="1-torch-mul-mm-matlmul-bmm-等区别"><a href="#1-torch-mul-mm-matlmul-bmm-等区别" class="headerlink" title="1.torch.mul / mm / matlmul / bmm 等区别"></a>1.torch.mul / mm / matlmul / bmm 等区别</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/12/09/%E5%85%B3%E4%BA%8Epytorch%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%87%BD%E6%95%B0%E7%9A%84%E7%AC%94%E8%AE%B0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 

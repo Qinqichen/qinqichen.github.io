@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202112292155152.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202112292155764.png">
 <meta property="article:published_time" content="2021-12-29T13:18:52.000Z">
-<meta property="article:modified_time" content="2021-12-29T15:30:14.826Z">
+<meta property="article:modified_time" content="2022-01-04T10:17:01.185Z">
 <meta property="article:author" content="秦琦琛">
 <meta property="article:tag" content="数据结构与算法">
 <meta property="article:tag" content="面试">
@@ -195,10 +195,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-12-29 21:18:52 / 修改时间：23:30:14" itemprop="dateCreated datePublished" datetime="2021-12-29T21:18:52+08:00">2021-12-29</time>
+              <time title="创建时间：2021-12-29 21:18:52" itemprop="dateCreated datePublished" datetime="2021-12-29T21:18:52+08:00">2021-12-29</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-04 18:17:01" itemprop="dateModified" datetime="2022-01-04T18:17:01+08:00">2022-01-04</time>
+              </span>
 
           
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -220,6 +226,8 @@
       
         <h2 id="最长公共子序列问题-动态规划"><a href="#最长公共子序列问题-动态规划" class="headerlink" title="最长公共子序列问题-动态规划"></a>最长公共子序列问题-动态规划</h2><p>一个给定序列的子序列是在该序列中删去若干元素后得到的序列。确切地说，若给定序列X={x1,x2,…,xm}，则另一序列Z={z1, z2,…,zk}，是X的子序列是指存在一个严格递增下标序列{i1, i2,…, ik}使得对于所有j=1,2,…, k，有: zj=xij。例如，序列Z={B,C, D,B}是序列X={A,B,C,B,D,A,B}的子序列，相应的递增下标序列为{2,3,5,7}。</p>
 <p>给定两个序列X和Y，当另一个序列Z既是X的子序列又是Y的子序列时，称Z是序列X和Y的公共子序列。</p>
+<span id="more"></span>
+
 <p>例如，若X={A,B,C,B,D,A,B}，Y={B, D,C,A,B,A}，则序列{B,C,A}是X和Y的一个公共子序列，但它不是X和Y的一个最长公共子序列。序列{B,C,B,A}也是X和Y的一个公共子序列，其长度为4，而且它是X和Y的最长公共子序列，因为X和Y没有长度大于4的公共子序列。</p>
 <p> 穷举搜索法是最容易想到的算法，对X的所有子序列，检查它是否也是Y的子序列。从而确定它是否为X和Y的公共子序列。并且在检查过程中记录最长的公共子序列。X的所有子序列都检查过后即可求出X和Y的最长公共子序列。X的每个子序列相应于下标集{1,2, …,m}的一个子集，因此有2m个不同子序列，从而穷举搜索法需要指数时间。</p>
 <p>事实上，最长公共子序列问题具有最优子结构性质。</p>
