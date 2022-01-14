@@ -163,6 +163,105 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://qinqichen.github.io/2022/01/14/%E9%A5%A5%E8%8D%92%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E4%B8%8E%E5%90%8E%E6%9C%9F%E7%BB%B4%E6%8A%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/self.jpg">
+      <meta itemprop="name" content="秦琦琛">
+      <meta itemprop="description" content="于世间争渡">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/01/14/%E9%A5%A5%E8%8D%92%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E4%B8%8E%E5%90%8E%E6%9C%9F%E7%BB%B4%E6%8A%A4/" class="post-title-link" itemprop="url">饥荒服务器搭建与后期维护</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-01-14 17:09:53 / 修改时间：20:01:03" itemprop="dateCreated datePublished" datetime="2022-01-14T17:09:53+08:00">2022-01-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、服务器搭建"><a href="#一、服务器搭建" class="headerlink" title="一、服务器搭建"></a>一、服务器搭建</h2><p>基本上逐条复制，不报错就是成功。</p>
+<h3 id="1-安装服务器的基本条件"><a href="#1-安装服务器的基本条件" class="headerlink" title="1.安装服务器的基本条件"></a>1.安装服务器的基本条件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo yum update</span><br><span class="line"></span><br><span class="line">sudo yum -y install glibc.i686 libstdc++.i686 libcurl4-gnutls-dev.i686 libcurl.i686 screen</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-安装-SteamCMD-与-饥荒本体包"><a href="#2-安装-SteamCMD-与-饥荒本体包" class="headerlink" title="2.安装 SteamCMD 与 饥荒本体包"></a>2.安装 SteamCMD 与 饥荒本体包</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /home/steam &amp;&amp; cd /home/steam</span><br><span class="line"></span><br><span class="line">mkdir steamCMD &amp;&amp; cd steamCMD</span><br><span class="line"></span><br><span class="line">wget https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz</span><br><span class="line"></span><br><span class="line">tar -xvzf steamcmd_linux.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>在 home 路径下创建 steam 文件夹，用于存放这些软件以及游戏等，解压缩下载的 steamCMD 后如下内容</p>
+<p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201141901463.png"></p>
+<p>然后运行 <strong>./steamcmd.sh</strong>     </p>
+<p>开始自动下载安装，直到进入如下界面，输入 quit 退出</p>
+<p>每次都是通过 <strong>./steamcmd.sh</strong> 进入软件界面</p>
+<p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201141901955.png"></p>
+<p>接下来进入 steamCMD 进行游戏的安装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">设置安装路径</span></span><br><span class="line"></span><br><span class="line">force_install_dir /home/steam/game/dontstarvetogether</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">登录匿名用户用于下载服务端</span></span><br><span class="line"></span><br><span class="line">login anonymous</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">下载程序，数字是饥荒的steam代号</span></span><br><span class="line"></span><br><span class="line">app_update 343050 validate</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>安装完后显示如下界面，之后 quit 退出</p>
+<p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201141921088.png" alt="image-20220114192116116"></p>
+<p>首先解决最重要的问题，linux下饥荒的服务器似乎需要的组件跟现在的组件产生了名字上的差错，导致启动服务器会显示缺少关键的组件 libcurl-gnutls.so.4 ，因此需要执行下面的命令来解决：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/lib/libcurl.so.4 /home/steam/game/dontstarvetogether/bin/lib32/libcurl-gnutls.so.4</span><br></pre></td></tr></table></figure>
+
+<p>然后接着执行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cd /home/steam/game/dontstarvetogether/bin</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建存档文件夹</span></span><br><span class="line">mkdir /home/steam/game/save</span><br><span class="line"></span><br><span class="line">echo &quot;/home/steam/game/dontstarvetogether/bin/dontstarve_dedicated_server_nullrenderer -console -persistent_storage_root /home/steam/game/save/dstsave -conf_dir dst -cluster World1 -shard Master&quot; &gt; master_start.sh</span><br><span class="line"></span><br><span class="line">echo &quot;/home/steam/game/dontstarvetogether/bin/dontstarve_dedicated_server_nullrenderer -console -persistent_storage_root /home/steam/game/save/dstsave -conf_dir dst -cluster World1 -shard Caves&quot; &gt; cave_start.sh</span><br><span class="line"></span><br><span class="line">chmod +x master_start.sh cave_start.sh</span><br></pre></td></tr></table></figure>
+
+<p>输入**./master_start.sh**启动主世界服务器。</p>
+<p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201141935481.png" alt="image-20220114193502245"></p>
+<p>当看到上图，表名服务器启动但还未配置所以显示未正常启动。</p>
+<p>但这是成功的标志，之后按下 <strong>Ctrl</strong> + <strong>C</strong> 正常关闭服务器。</p>
+<p>同样的输入 <strong>./cave_start.sh</strong> 启动洞穴服务器并正常关闭。</p>
+<p>经过上述服务器初次启动，在 /home/steam/game/save/dstsave/dst/World1/ 文件夹下就会自动生成默认的配置文件</p>
+<p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201141945180.png" alt="image-20220114194553172"></p>
+<p>这个配置文件就是我们饥荒服务器的配置文件了，记住这个地址，接下来有两种方式，一种是自己修改配置，这种要求比较高，另一种就是现在自己电脑上创建一个服务器，然后将配置文件复制到Linux服务器上，推荐使用第二种，简单，准确，这里也只描述第二种。</p>
+<h3 id="3-创建服务器并启动"><a href="#3-创建服务器并启动" class="headerlink" title="3.创建服务器并启动"></a>3.创建服务器并启动</h3><h4 id="本地创建房间，并复制到-Linux-服务器"><a href="#本地创建房间，并复制到-Linux-服务器" class="headerlink" title="本地创建房间，并复制到 Linux 服务器"></a>本地创建房间，并复制到 Linux 服务器</h4><p>在自己电脑上先创建一个新的服务器，并设置好你的房间名、密码、地洞、配置好服务器mod，然后点击创建，等房间创建好到选人界面，就可以退出了，比如下图的房间。</p>
+<img src="D:\Edit\AllOfMyImages\Typora\image-20220114194641802.png" alt="image-20220114194641802" style="zoom: 50%;" />
+
+<p>然后按照上图的位置打开世界的存放位置</p>
+<p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201141948386.png" alt="image-20220114194824120"></p>
+<p>将上图的三个文件全部复制到linux服务器上，直接替换World1 中的内容。</p>
+<p>上传完成后，新建一个 cluster_token.txt 存放服务器token信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi cluster_token.txt</span><br></pre></td></tr></table></figure>
+
+<p>World1 下的内容如下</p>
+<p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201141953064.png" alt="image-20220114195336086"></p>
+<h4 id="获取官方服务器-token-并粘贴到Linux-服务器上"><a href="#获取官方服务器-token-并粘贴到Linux-服务器上" class="headerlink" title="获取官方服务器 token 并粘贴到Linux 服务器上"></a>获取官方服务器 token 并粘贴到Linux 服务器上</h4><h4 id="启动服务器"><a href="#启动服务器" class="headerlink" title="启动服务器"></a>启动服务器</h4><h4 id="设置mod"><a href="#设置mod" class="headerlink" title="设置mod"></a>设置mod</h4><h4 id="配置其他设置"><a href="#配置其他设置" class="headerlink" title="配置其他设置"></a>配置其他设置</h4><h2 id="二、服务器后期维护"><a href="#二、服务器后期维护" class="headerlink" title="二、服务器后期维护"></a>二、服务器后期维护</h2><h3 id="1"><a href="#1" class="headerlink" title="1."></a>1.</h3>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://qinqichen.github.io/2022/01/05/%E7%9F%A9%E9%98%B5%E5%88%86%E6%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -895,90 +994,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://qinqichen.github.io/2021/12/09/%E4%BA%BA%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%B7%A5%E4%BD%9C%EF%BC%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/self.jpg">
-      <meta itemprop="name" content="秦琦琛">
-      <meta itemprop="description" content="于世间争渡">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/09/%E4%BA%BA%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%B7%A5%E4%BD%9C%EF%BC%9F/" class="post-title-link" itemprop="url">人为什么要工作？</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-12-09 18:57:45" itemprop="dateCreated datePublished" datetime="2021-12-09T18:57:45+08:00">2021-12-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-01-05 20:01:41" itemprop="dateModified" datetime="2022-01-05T20:01:41+08:00">2022-01-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9A%8F%E7%AC%94/" itemprop="url" rel="index"><span itemprop="name">随笔</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>今天由于英语课上的一篇小论文（Why people do work？）而搜了下这个问题，拜读了诸多前人的见解后，我对这个问题开始有了初步的理解。</p>
-<p>在阅读文章【2】的时候，对作者从小孩方面的见解非常独到，我没有孩子，我可能还无法理解为人母的情感，但从孩子方面出发，我确实存在许多作者所列举的困惑。</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/12/09/%E4%BA%BA%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%B7%A5%E4%BD%9C%EF%BC%9F/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1050,7 +1065,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1063,7 +1078,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
