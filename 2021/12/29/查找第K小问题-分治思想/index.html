@@ -237,7 +237,6 @@
         <h2 id="查找第K小问题-分治"><a href="#查找第K小问题-分治" class="headerlink" title="查找第K小问题-分治"></a>查找第K小问题-分治</h2><p>选择问题（select problem）是指在n个元素的集合中，选出某个元素值大小在集合中处于第k位的元素，即所谓的求第k小元素问题(kth-smallest)。 </p>
 <p>当k=1时，是求最小元素；而当k=n时，就是求最大元素；当k=(n+1)/2时，称为中位数。</p>
 <span id="more"></span>
-
 <h3 id="一、分治法"><a href="#一、分治法" class="headerlink" title="一、分治法"></a>一、分治法</h3><p>假定经过一趟划分后，长度为n的原表被分成左右两个子表，其中，长度为p的左子表包括主元及其左边的元素，右子表包括主元右边的元素。那么：</p>
 <ul>
 <li>若k=p，则主元即为第k小元素；</li>
@@ -245,22 +244,16 @@
 <li>若k&gt;p，则第k小元素必定在右子表中，需求解的子问题成为在右子表中求第k-p小元素。</li>
 </ul>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">SearchK</span><span class="params">(<span class="keyword">int</span> A[], <span class="keyword">int</span> left ,<span class="keyword">int</span> right , <span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(left &gt; right )</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span> ;</span><br><span class="line">    <span class="keyword">int</span> i = Partition(A,left,right);</span><br><span class="line">    <span class="keyword">int</span> p = i - left + <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span>( p == k )</span><br><span class="line">        <span class="keyword">return</span> A[k];</span><br><span class="line">    <span class="keyword">if</span>( k &lt; p )&#123;</span><br><span class="line">        <span class="keyword">return</span> SearchK(A,left,p,k);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> SearchK(A,p+<span class="number">1</span>,right,k-p);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Partition</span><span class="params">(<span class="keyword">int</span> A[], <span class="keyword">int</span> left ,<span class="keyword">int</span> right)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> priot = A[left] ;</span><br><span class="line">    <span class="keyword">int</span> i = left , j = right ;</span><br><span class="line">    <span class="keyword">while</span>(i &lt; j )&#123;</span><br><span class="line">        <span class="keyword">while</span>( A[j] &gt; priot)&#123;</span><br><span class="line">            j-- ;</span><br><span class="line">        &#125;</span><br><span class="line">        A[i] = A[j] ;</span><br><span class="line">        <span class="keyword">while</span>( A[i] &lt; priot )&#123;</span><br><span class="line">            i++ ;</span><br><span class="line">        &#125;</span><br><span class="line">        A[j] = A[i] ;</span><br><span class="line">    &#125;</span><br><span class="line">    A[i] = priot ;</span><br><span class="line">    <span class="keyword">return</span> i ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>时间复杂度：O(n)                  最坏情况下：O(n^2)</p>
-<h3 id="二、分治法的进一步加深"><a href="#二、分治法的进一步加深" class="headerlink" title="二、分治法的进一步加深"></a>二、分治法的进一步加深</h3><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202112292327556.png" alt="image-20211226213017613" style="zoom:80%;" />
-
+<h3 id="二、分治法的进一步加深"><a href="#二、分治法的进一步加深" class="headerlink" title="二、分治法的进一步加深"></a>二、分治法的进一步加深</h3><p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202112292327556.png" alt="image-20211226213017613" style="zoom:80%;" /></p>
 <p>对n个元素进行分组，M序列是由每组的中位数组成。中间粉色的就是m*</p>
-<img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202112292328520.png" alt="image-20211226213223263" style="zoom:80%;" />
-
+<p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202112292328520.png" alt="image-20211226213223263" style="zoom:80%;" /></p>
 <p>通过与m*进行比较，将所有元素划分为四个区域。</p>
 <p>A、D中的元素分别与m*进行比较，将元素分别划到B、C集合中。</p>
-<img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202112292327781.png" alt="image-20211226213527422" style="zoom:80%;" />
-
+<p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202112292327781.png" alt="image-20211226213527422" style="zoom:80%;" /></p>
 <p>如上图所示，最后将元素分成两个集合，并以m*作为划分点。</p>
-<img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202112292327743.png" alt="image-20211226213722007" style="zoom:80%;" />
-
+<p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202112292327743.png" alt="image-20211226213722007" style="zoom:80%;" /></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">SelectK</span><span class="params">(<span class="keyword">int</span> S[], <span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 
     </div>
 

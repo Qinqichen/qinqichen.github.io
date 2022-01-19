@@ -50,8 +50,8 @@
 <meta property="article:published_time" content="2022-01-14T09:09:53.000Z">
 <meta property="article:modified_time" content="2022-01-16T17:39:29.789Z">
 <meta property="article:author" content="秦琦琛">
-<meta property="article:tag" content="教程">
 <meta property="article:tag" content="饥荒">
+<meta property="article:tag" content="教程">
 <meta property="article:tag" content="游戏">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201170133091.png">
@@ -243,30 +243,24 @@
       
         <p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201170133091.png" alt="image-20220117013220668"></p>
 <span id="more"></span>
-
 <h2 id="一、服务器搭建"><a href="#一、服务器搭建" class="headerlink" title="一、服务器搭建"></a>一、服务器搭建</h2><p>基本上逐条复制，不报错就是成功。</p>
 <h3 id="1-安装服务器的基本条件"><a href="#1-安装服务器的基本条件" class="headerlink" title="1.安装服务器的基本条件"></a>1.安装服务器的基本条件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo yum update</span><br><span class="line"></span><br><span class="line">sudo yum -y install glibc.i686 libstdc++.i686 libcurl4-gnutls-dev.i686 libcurl.i686 screen</span><br></pre></td></tr></table></figure>
-
 <h3 id="2-安装-SteamCMD-与-饥荒本体包"><a href="#2-安装-SteamCMD-与-饥荒本体包" class="headerlink" title="2.安装 SteamCMD 与 饥荒本体包"></a>2.安装 SteamCMD 与 饥荒本体包</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /home/steam &amp;&amp; cd /home/steam</span><br><span class="line"></span><br><span class="line">mkdir steamCMD &amp;&amp; cd steamCMD</span><br><span class="line"></span><br><span class="line">wget https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz</span><br><span class="line"></span><br><span class="line">tar -xvzf steamcmd_linux.tar.gz</span><br></pre></td></tr></table></figure>
-
 <p>在 home 路径下创建 steam 文件夹，用于存放这些软件以及游戏等，解压缩下载的 steamCMD 后如下内容</p>
-<p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201141901463.png"></p>
+<p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201141901463.png" alt=""></p>
 <p>然后运行 <strong>./steamcmd.sh</strong>     </p>
 <p>开始自动下载安装，直到进入如下界面，输入 quit 退出</p>
 <p>每次都是通过 <strong>./steamcmd.sh</strong> 进入软件界面</p>
-<p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201141901955.png"></p>
+<p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201141901955.png" alt=""></p>
 <p>接下来进入 steamCMD 进行游戏的安装</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">设置安装路径</span></span><br><span class="line"></span><br><span class="line">force_install_dir /home/steam/game/dontstarvetogether</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">登录匿名用户用于下载服务端</span></span><br><span class="line"></span><br><span class="line">login anonymous</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">下载程序，数字是饥荒的steam代号</span></span><br><span class="line"></span><br><span class="line">app_update 343050 validate</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
 <p>安装完后显示如下界面，之后 quit 退出</p>
 <p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201141921088.png" alt="image-20220114192116116"></p>
 <p>首先解决最重要的问题，linux下饥荒的服务器似乎需要的组件跟现在的组件产生了名字上的差错，导致启动服务器会显示缺少关键的组件 libcurl-gnutls.so.4 ，因此需要执行下面的命令来解决：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/lib/libcurl.so.4 /home/steam/game/dontstarvetogether/bin/lib32/libcurl-gnutls.so.4</span><br></pre></td></tr></table></figure>
-
 <p>然后接着执行：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cd /home/steam/game/dontstarvetogether/bin</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建存档文件夹</span></span><br><span class="line">mkdir /home/steam/game/save</span><br><span class="line"></span><br><span class="line">echo &quot;/home/steam/game/dontstarvetogether/bin/dontstarve_dedicated_server_nullrenderer -console -persistent_storage_root /home/steam/game/save/dstsave -conf_dir dst -cluster World1 -shard Master&quot; &gt; master_start.sh</span><br><span class="line"></span><br><span class="line">echo &quot;/home/steam/game/dontstarvetogether/bin/dontstarve_dedicated_server_nullrenderer -console -persistent_storage_root /home/steam/game/save/dstsave -conf_dir dst -cluster World1 -shard Caves&quot; &gt; cave_start.sh</span><br><span class="line"></span><br><span class="line">chmod +x master_start.sh cave_start.sh</span><br></pre></td></tr></table></figure>
-
-<p>输入**./master_start.sh**启动主世界服务器。</p>
+<p>输入<strong>./master_start.sh</strong>启动主世界服务器。</p>
 <p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201141935481.png" alt="image-20220114193502245"></p>
 <p>当看到上图，表名服务器启动但还未配置所以显示未正常启动。</p>
 <p>但这是成功的标志，之后按下 <strong>Ctrl</strong> + <strong>C</strong> 正常关闭服务器。</p>
@@ -275,14 +269,12 @@
 <p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201141945180.png" alt="image-20220114194553172"></p>
 <p>这个配置文件就是我们饥荒服务器的配置文件了，记住这个地址，接下来有两种方式，一种是自己修改配置，这种要求比较高，另一种就是现在自己电脑上创建一个服务器，然后将配置文件复制到Linux服务器上，推荐使用第二种，简单，准确，这里也只描述第二种。</p>
 <h3 id="3-创建服务器并启动"><a href="#3-创建服务器并启动" class="headerlink" title="3.创建服务器并启动"></a>3.创建服务器并启动</h3><h4 id="本地创建房间，并复制到-Linux-服务器"><a href="#本地创建房间，并复制到-Linux-服务器" class="headerlink" title="本地创建房间，并复制到 Linux 服务器"></a>本地创建房间，并复制到 Linux 服务器</h4><p>在自己电脑上先创建一个新的服务器，并设置好你的房间名、密码、地洞、配置好服务器mod，然后点击创建，等房间创建好到选人界面，就可以退出了，比如下图的房间。</p>
-<img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201162306017.png" alt="image-20220114194641802" style="zoom: 50%;" />
-
+<p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201162306017.png" alt="image-20220114194641802" style="zoom: 50%;" /></p>
 <p>然后按照上图的位置打开世界的存放位置</p>
 <p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201141948386.png" alt="image-20220114194824120"></p>
 <p>将上图的三个文件全部复制到linux服务器上，直接替换World1 中的内容。</p>
 <p>上传完成后，新建一个 cluster_token.txt 存放服务器token信息</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi cluster_token.txt</span><br></pre></td></tr></table></figure>
-
 <p>注：不会用vi的用户可以在自己的电脑上右键新建txt文档，然后上传上去，也可以等下面获取token并填入后，一并上传</p>
 <p>World1 文件夹下的内容</p>
 <p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201141953064.png" alt="image-20220114195336086"></p>
@@ -296,23 +288,19 @@
 <h4 id="启动服务器"><a href="#启动服务器" class="headerlink" title="启动服务器"></a>启动服务器</h4><p>为了让饥荒的服务运行在后台，所以采用了 screen 作为跳板，下面仅附带必须的语句，具体常用的语句，在文章最后稍加介绍</p>
 <p>先启动主地图服务器</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd /home/steam/game/dontstarvetogether/bin</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">指定screen名称</span></span><br><span class="line">screen -S master</span><br><span class="line"></span><br><span class="line">./master_start.sh</span><br></pre></td></tr></table></figure>
-
 <p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201170134355.png" alt="image-20220116234153662"></p>
 <p>出现上面 Sim paused 证明服务正常启动了，下面可能还有其他日志，但目前并不是很重要。</p>
 <p>然后按下 <strong>Ctrl+A</strong> 然后再按下 <strong>Ctrl+D</strong> 就可以让服务后台运行，并回到原来的控制台</p>
 <p>同样的方式启动洞穴世界</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">指定screen名称</span></span><br><span class="line">screen -S caves</span><br><span class="line"></span><br><span class="line">./cave_start.sh</span><br></pre></td></tr></table></figure>
-
 <p>出现上面 Sim paused 证明服务正常启动了，下面可能还有其他日志，但目前并不是很重要。</p>
 <p>然后按下 <strong>Ctrl+A</strong> 然后再按下 <strong>Ctrl+D</strong> 就可以让服务后台运行，并回到原来的控制台。</p>
 <p>这时可以通过以下命令来查看改服务是否启动</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">netstat -nlp |grep :1099*</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
 <p>10999为主服务器的端口，10998为洞穴的端口，如果两个都显示值，则表明启动成功，如下图。</p>
 <p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201170134250.png" alt="image-20220117001540139"></p>
 <p>如果要退出服务，可以杀掉进程，进入screen，退出就行了</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#杀进程</span><br><span class="line">kill -9 13856</span><br><span class="line">kill -9 12758</span><br><span class="line"></span><br><span class="line">#进入之前的screen</span><br><span class="line">screen -r master</span><br><span class="line">screen -r cave</span><br><span class="line"></span><br><span class="line">#进入screen 后退出</span><br><span class="line">exit</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
 <p>启动之后，应该就能够在游戏中搜索到你的服务器了，如果搜不到，找找问题所在，或者留言，不一回复。</p>
 <p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201170137721.png" alt="image-20220117001946010"></p>
 <p>如上图所示，新建的房间，专属服务器，第一天，但是一点在游戏中我们是配置了mod的，但是在这里却没有显示，mod需要单独设置。</p>
@@ -322,14 +310,9 @@
 <p><strong>modoverrides.lua</strong> 就是我们之前房间配置好的mod，因为这个文件是创建房间自动生成的，没有任何问题，在这里写是为了告诉你这个文件的作用，并且记住这个文件，等下要用到。</p>
 <p>回到我们之前服务器的目录，下面有一个<strong>mods</strong>文件夹，进入这个文件夹</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /home/steam/game/dontstarvetogether/mods</span><br></pre></td></tr></table></figure>
-
 <p>这个时候你会在里面发现有一个 <strong>dedicated_server_mods_setup.lua</strong> 文件，里面一堆英文而且全都注释的，我们之所以没有mod是因为这个文件没有引入并下载mod，所以我们编辑这个文件，同样你可以在Linux里面使用vim编辑，如果你不懂vim命令，可以在自己电脑上创建一个名叫 “<strong>dedicated_server_mods_setup.lua</strong>” 的空文本，然后将如下的代码粘贴进去，保存后再复制到Linux下）</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">查看这个文件 内容</span></span><br><span class="line">cat dedicated_server_mods_setup.lua</span><br></pre></td></tr></table></figure>
-
-
-
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--There are two functions that will install mods, ServerModSetup and ServerModCollectionSetup. Put the calls to the functions in this file and they will be executed on boot.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--ServerModSetup takes a string of a specific mod&#x27;s Workshop id. It will download and install the mod to your mod directory on boot.</span></span><br><span class="line">    <span class="comment">--The Workshop id can be found at the end of the url to the mod&#x27;s Workshop page.</span></span><br><span class="line">    <span class="comment">--Example: http://steamcommunity.com/sharedfiles/filedetails/?id=350811795</span></span><br><span class="line">    <span class="comment">--ServerModSetup(&quot;350811795&quot;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--ServerModCollectionSetup takes a string of a specific mod&#x27;s Workshop id. It will download all the mods in the collection and install them to the mod directory on boot.</span></span><br><span class="line">    <span class="comment">--The Workshop id can be found at the end of the url to the collection&#x27;s Workshop page.</span></span><br><span class="line">    <span class="comment">--Example: http://steamcommunity.com/sharedfiles/filedetails/?id=379114180</span></span><br><span class="line">    <span class="comment">--ServerModCollectionSetup(&quot;379114180&quot;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--上面是自带的内容，下面是需要自己修改的内容</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ServerModSetup(<span class="string">&quot;1392778117&quot;</span>)</span><br><span class="line">ServerModSetup(<span class="string">&quot;1699194522&quot;</span>)</span><br><span class="line">ServerModSetup(<span class="string">&quot;1714227968&quot;</span>)</span><br><span class="line">ServerModSetup(<span class="string">&quot;1991746508&quot;</span>)</span><br><span class="line">ServerModSetup(<span class="string">&quot;2032685784&quot;</span>)</span><br><span class="line">ServerModSetup(<span class="string">&quot;2119742489&quot;</span>)</span><br><span class="line">ServerModSetup(<span class="string">&quot;2505341606&quot;</span>)</span><br><span class="line">ServerModSetup(<span class="string">&quot;378160973&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">--ServerModCollectionSetup(&quot;id&quot;)</span></span><br></pre></td></tr></table></figure>
-
 <p>其中<strong>ServerModSetup(“1216718131”)就是引入mod，括号里面的数字就是mod的id，还记得上一步要你记住的那个modoverrides.lua</strong>文件吗？打开那个文件，如下：</p>
 <p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201170137723.png" alt="image-20220117002955670"></p>
 <p>[“workshop-1392778117”]里面的这一串数字就是mod的id，所以你将modoverrides.lua文件里面所有的workshop对应的数字（也就是你配置的mod）全部复制到<strong>dedicated_server_mods_setup.lua</strong> 文件里，一个mod对应一条ServerModSetup(“1392778117”) ，修改好后再重启服务器，mod就配置好了。</p>
@@ -342,9 +325,8 @@
 <p>首先准备好要做管理员的好友的<strong>KLEI用户ID</strong>，怎么看好友的<strong>KLEI用户ID</strong>？往下看<br>打开游戏，点击<strong>用户信息</strong></p>
 <p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201170138753.png" alt="image-20220117003542378"></p>
 <p>箭头指向的就是ID，复制下来。</p>
-<p>然后进入之前的**/home/steam/game/save/dstsave/dst/World1<strong>目录，也就是第三步最后面cluster_token.txt存放的目录，使用vim命令(没有vim的可以用vi命令)创建一个名叫“</strong>adminlist.txt**”的文件</p>
+<p>然后进入之前的<strong>/home/steam/game/save/dstsave/dst/World1</strong>目录，也就是第三步最后面cluster_token.txt存放的目录，使用vim命令(没有vim的可以用vi命令)创建一个名叫“<strong>adminlist.txt</strong>”的文件</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /home/steam/game/save/dstsave/dst/World1</span><br><span class="line"></span><br><span class="line">vi adminlist.txt</span><br></pre></td></tr></table></figure>
-
 <p>按 i 开启编辑（开启编辑后下面会显示 – INSERT –），将好友的KLEI用户ID复制到adminlist.txt文件里，然后按一下esc退出编辑（下面的 – INSERT – 会消失），再按 <strong>:wq</strong> 保存文件。如果要加两位管理员，则换一行输入第二位好友的 KLEI用户ID，一行只能放一个好友的 KLEI用户ID。</p>
 <p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201170138294.png" alt="image-20220117003922741"></p>
 <p>然后服务器重新启动，至此，服务器就搭建好了。</p>
@@ -354,12 +336,10 @@
 <h2 id="二、服务器后期维护"><a href="#二、服务器后期维护" class="headerlink" title="二、服务器后期维护"></a>二、服务器后期维护</h2><p>只要游戏更新、mod更新、甚至steam更新都可能导致游戏服务器找不到，或者进不去，所以要及时更新。</p>
 <h3 id="1-更新游戏"><a href="#1-更新游戏" class="headerlink" title="1.更新游戏"></a>1.更新游戏</h3><p>首先进入之前的steamcmd的安装目录，/home/steamcmd，然后启动steamcmd</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /home/steam/steamCMD</span><br><span class="line"></span><br><span class="line">./steamcmd.sh</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201170139202.png"></p>
+<p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201170139202.png" alt=""></p>
 <p>上面的小警告不是大问题，不影响正常使用。</p>
 <p>当你看到上图这种以 <strong>Steam&gt;</strong> 开头的就代表进入了SteamCMD了，接下来再接着执行以下代码代码：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">(这里的/home/dstserver要改为你们自己的服务器路径)</span></span><br><span class="line">force_install_dir /home/steam/game/dontstarvetogether</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">force_install_dir /home/dontstartveService</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">login anonymous</span><br><span class="line"></span><br><span class="line">app_update 343050 validate</span><br></pre></td></tr></table></figure>
-
 <p>等服务器更新完成就OK了。</p>
 <h3 id="2-mod更新"><a href="#2-mod更新" class="headerlink" title="2.mod更新"></a>2.mod更新</h3><p>mod跟新其实是自动的，当按照上述的步骤，将使用的mod编码写到 <strong>dedicated_server_mods_setup.lua</strong>  中后，每次启动服务器，它都会自动更新mod</p>
 <h2 id="补充知识"><a href="#补充知识" class="headerlink" title="补充知识"></a>补充知识</h2><h3 id="screen基本指令"><a href="#screen基本指令" class="headerlink" title="screen基本指令"></a>screen基本指令</h3><h3 id="自动导出mod脚本"><a href="#自动导出mod脚本" class="headerlink" title="自动导出mod脚本"></a>自动导出mod脚本</h3><h3 id="vi基本用法"><a href="#vi基本用法" class="headerlink" title="vi基本用法"></a>vi基本用法</h3><h3 id="饥荒指令"><a href="#饥荒指令" class="headerlink" title="饥荒指令"></a>饥荒指令</h3><h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/146379848">饥荒联机太卡？搭建饥荒独立服务器解决</a></p>
@@ -389,8 +369,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E6%95%99%E7%A8%8B/" rel="tag"># 教程</a>
               <a href="/tags/%E9%A5%A5%E8%8D%92/" rel="tag"># 饥荒</a>
+              <a href="/tags/%E6%95%99%E7%A8%8B/" rel="tag"># 教程</a>
               <a href="/tags/%E6%B8%B8%E6%88%8F/" rel="tag"># 游戏</a>
           </div>
 
