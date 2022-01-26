@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201262131920.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202201262131078.png">
 <meta property="article:published_time" content="2022-01-26T13:23:26.000Z">
-<meta property="article:modified_time" content="2022-01-26T14:37:02.284Z">
+<meta property="article:modified_time" content="2022-01-26T15:15:52.957Z">
 <meta property="article:author" content="秦琦琛">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="SVM">
@@ -205,7 +205,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-01-26 21:23:26 / 修改时间：22:37:02" itemprop="dateCreated datePublished" datetime="2022-01-26T21:23:26+08:00">2022-01-26</time>
+              <time title="创建时间：2022-01-26 21:23:26 / 修改时间：23:15:52" itemprop="dateCreated datePublished" datetime="2022-01-26T21:23:26+08:00">2022-01-26</time>
             </span>
 
           
@@ -426,7 +426,7 @@ K(X_1,X_2) &= (x_{11}x_{21} + x_{12}x_{22} + 1)^2 \newline
  & = [x_1^2,x_2^2,1,\sqrt{2}x_1x_2,\sqrt{2}x_1,\sqrt{2}x_2]^T \newline
  & K(X_1,X_2)就是上面那个形式
 \end{aligned}</script><p>核函数 $K(X_1,X_2) $ 和映射 $\varphi(x)$ 是一一对应的关系，核函数的形式不能随意的取，需满足一定的条件——两个 $\varphi$ 内积的形式。</p>
-<h3 id="Mercer‘s-Theorem"><a href="#Mercer‘s-Theorem" class="headerlink" title="Mercer‘s Theorem"></a>Mercer‘s Theorem</h3><script type="math/tex; mode=display">
+<h3 id="Mercer’s-Theorem"><a href="#Mercer’s-Theorem" class="headerlink" title="Mercer’s Theorem"></a>Mercer’s Theorem</h3><script type="math/tex; mode=display">
 \begin{aligned}
 &K(X_1,X_2)能写成\varphi(X_1)^T\varphi(X_2) 的充要条件 \newline
 &① \quad K(X_1,X_2) = K(X_1,X_2) \quad  (交换性) \newline
@@ -459,7 +459,7 @@ K(X_1,X_2) = e^{- \frac{\left|| X_1 - X_2  \right||^2}{2\sigma^2}}</script><p>�
 \inf : &\quad 下确界 \newline
 整个公式&清晰明了，即为取使得 L 最大化最小值的\theta,\alpha,\beta
 \end{aligned}</script><p>综合原问题和对偶问题的定义得到：</p>
-<h3 id="定理一："><a href="#定理一：" class="headerlink" title="定理一："></a>定理一：</h3><p>如果 $\omega^{<em>}$ 是原问题的解，$(\alpha^</em>,\beta^*)$  是对偶问题的解则有：</p>
+<h3 id="定理一："><a href="#定理一：" class="headerlink" title="定理一："></a>定理一：</h3><p>如果 $\omega^\ast$ 是原问题的解，$(\alpha^\ast,\beta^\ast)$  是对偶问题的解则有：</p>
 <script type="math/tex; mode=display">
 f(\omega^*) \geq \theta(\alpha^*,\beta^*) \tag{1}\label{theroy_one}</script><p>​                证明：</p>
 <script type="math/tex; mode=display">
@@ -477,9 +477,9 @@ f(\omega^*) \geq \theta(\alpha^*,\beta^*) \tag{1}\label{theroy_one}</script><p>�
 f(\omega^*) - \theta(\alpha^*,\beta^*)</script><p>显然，对偶差距是一个大于等于零的实数。</p>
 <h3 id="强对偶定理（Strong-Duality-Theorem）"><a href="#强对偶定理（Strong-Duality-Theorem）" class="headerlink" title="强对偶定理（Strong Duality Theorem）"></a>强对偶定理（Strong Duality Theorem）</h3><script type="math/tex; mode=display">
 \quad  如果\ g(\omega) = A\omega+b , \ h(\omega)=C\omega+b,\ f(\omega) \ 为凸函数，则有 \ f(\omega^*)=\theta(\alpha^*,\beta^*) \ ,且对偶差距为\ 0\ 。</script><p>简单来说，如果：</p>
-<p>​            <strong>原问题的目标函数是凸函数，且限制条件是线性函数，则 $f(\omega^<em>)=\theta(\alpha^</em>,\beta^*)$ ，且对偶差距为 0。</strong>（证明参照：《Convex Optimization》）</p>
+<p>​            <strong>原问题的目标函数是凸函数，且限制条件是线性函数，则 $f(\omega^\ast)=\theta(\alpha^\ast,\beta^\ast)$ ，且对偶差距为 0。</strong>（证明参照：《Convex Optimization》）</p>
 <h3 id="KKT条件："><a href="#KKT条件：" class="headerlink" title="KKT条件："></a>KKT条件：</h3><p>根据定理一推出的不等式：</p>
-<p>​        若 $f(\omega^<em>)=\theta(\alpha^</em>,\beta^<em>)$ ，则定理$(1)$中必然能够推出：对于所有的 $i=1\sim K$ 要么 $\alpha_i=0$ ，要么 $g_i(\omega^</em>)=0$ 。这个条件称为 <strong>KKT 条件</strong>。</p>
+<p>​        若 $f(\omega^\ast)=\theta(\alpha^\ast,\beta^\ast)$ ，则定理$(1)$中必然能够推出：对于所有的 $i=1\sim K$ 要么 $\alpha_i=0$ ，要么 $g_i(\omega^\ast)=0$ 。这个条件称为 <strong>KKT 条件</strong>。</p>
 <h2 id="转化为对偶问题"><a href="#转化为对偶问题" class="headerlink" title="转化为对偶问题"></a>转化为对偶问题</h2><p>将支持向量机模型转化为对偶问题，首先要证明支持向量机的原问题满足强对偶问题。</p>
 <p>回顾目前支持向量机的优化问题：</p>
 <script type="math/tex; mode=display">
@@ -508,21 +508,25 @@ f(\omega^*) - \theta(\alpha^*,\beta^*)</script><p>显然，对偶差距是一个
 &&&(2)\ y_i[w^T\varphi(X_i) +b] \geq 1+ \delta_i,(i=1\sim N) \\ \\
 \end{align*}</script><p>在整理一下得：</p>
 <script type="math/tex; mode=display">
-&最小化: &\frac{1}{2} \left|| \omega \right|| ^2 - C\sum^N_{i=1} \delta_i \qquad或
+\begin{aligned}
+&最小化: &&\frac{1}{2} \left|| \omega \right|| ^2 - C\sum^N_{i=1} \delta_i \qquad或
  &\frac{1}{2} \left|| \omega \right||^2 + C \sum^N_{i=1}\delta_i^2 \newline
- &&\Uparrow 情况一  &\Uparrow情况二 \newline
+ &&&\Uparrow 情况一  &\Uparrow情况二 \newline
 &限制条件: \newline
-&&(1)\ \delta_i \leq 0 ,& (i = 1\sim N)    \\
-&&(2)\ 1+ \delta_i - y_iw^T\varphi(X_i) - y_ib \leq 0,&(i=1\sim N) \\ \\
-&&其中自变量 \omega_原 =(\omega_现,b,\delta_i)</script><p>显然，限制条件是线性的，且目标函数是凸函数，满足强对偶定理。</p>
+&&&(1)\ \delta_i \leq 0 ,& (i = 1\sim N)    \\
+&&&(2)\ 1+ \delta_i - y_iw^T\varphi(X_i) - y_ib \leq 0,&(i=1\sim N) \\ \\
+&&&其中自变量 \omega_原 =(\omega_现,b,\delta_i)
+\end{aligned}</script><p>显然，限制条件是线性的，且目标函数是凸函数，满足强对偶定理。</p>
 <p>其中，限制条件的一二两条属于 $g_i(\omega)$ ，不存在 $ h_i(\omega) $ 。</p>
 <p>根据以上信息写成对偶问题的形式：</p>
 <script type="math/tex; mode=display">
-& 最大化: & \theta(\alpha,\beta) = \inf_{\omega,\delta_i,b} \{\ \frac{1}{2}\left|| \omega \right||^2 -C\sum^N_{i=1}\delta_i + \sum^N_{i=1}\alpha_i[ \ 1+ \delta_i - y_i\omega^T\varphi(X_i) - y_ib\ ] + \sum^N_{i=1}\beta_i\delta_i \ \}  \newline
+\begin{aligned}
+& 最大化: && \theta(\alpha,\beta) = \inf_{\omega,\delta_i,b} \{\ \frac{1}{2}\left|| \omega \right||^2 -C\sum^N_{i=1}\delta_i + \sum^N_{i=1}\alpha_i[ \ 1+ \delta_i - y_i\omega^T\varphi(X_i) - y_ib\ ] + \sum^N_{i=1}\beta_i\delta_i \ \}  \newline
 
 &限制条件 : \newline
-&& (1) \quad \alpha_i \geq 0 \newline
-&& (2) \quad \beta_i \geq 0 \newline</script><p>如何化为对偶问题：</p>
+&&& (1) \quad \alpha_i \geq 0 \newline
+&&& (2) \quad \beta_i \geq 0 \newline
+\end{aligned}</script><p>如何化为对偶问题：</p>
 <p>对 $(\omega,b,\delta_i)$ 求导并令导数为0。</p>
 <script type="math/tex; mode=display">
 (1) \frac{\partial \theta}{\partial \omega} = \omega - \sum^N_{i=1}\alpha_i y_i\varphi(X_i) = 0 \qquad  &\Rightarrow &\qquad  \omega = \sum^N_{i=1}\alpha_i y_i\varphi(X_i) &向量的求导法则  \newline
@@ -675,7 +679,7 @@ f(\omega^*) - \theta(\alpha^*,\beta^*)</script><p>显然，对偶差距是一个
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E8%8A%82%E5%9B%9E%E9%A1%BE"><span class="nav-text">上节回顾</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E4%B8%8D%E5%8F%AF%E5%88%86%E6%83%85%E5%86%B5"><span class="nav-text">线性不可分情况</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%BE%E6%9D%BE%E9%99%90%E5%88%B6%E6%9D%A1%E4%BB%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%9D%E8%B7%AF"><span class="nav-text">放松限制条件的基本思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%80%83"><span class="nav-text">思考</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%8E%E7%BB%B4%E5%88%B0%E9%AB%98%E7%BB%B4%E6%98%A0%E5%B0%84"><span class="nav-text">低维到高维映射</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%80%83-1"><span class="nav-text">思考</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-text">核函数的定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mercer%E2%80%98s-Theorem"><span class="nav-text">Mercer‘s Theorem</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E9%97%AE%E9%A2%98%E4%B8%8E%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98"><span class="nav-text">原问题与对偶问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E9%97%AE%E9%A2%98%EF%BC%88Prime-problem%EF%BC%89"><span class="nav-text">原问题（Prime problem）:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E8%AF%A5%E5%8E%9F%E9%97%AE%E9%A2%98%E7%9A%84%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98%E5%A6%82%E4%B8%8B"><span class="nav-text">定义该原问题的对偶问题如下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E7%90%86%E4%B8%80%EF%BC%9A"><span class="nav-text">定理一：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%BA%E5%AF%B9%E5%81%B6%E5%AE%9A%E7%90%86%EF%BC%88Strong-Duality-Theorem%EF%BC%89"><span class="nav-text">强对偶定理（Strong Duality Theorem）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KKT%E6%9D%A1%E4%BB%B6%EF%BC%9A"><span class="nav-text">KKT条件：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E5%8C%96%E4%B8%BA%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98"><span class="nav-text">转化为对偶问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B"><span class="nav-text">算法流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%B1%82-b"><span class="nav-text">如何求 $b$</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E5%AE%9A%E6%B5%8B%E8%AF%95%E6%A0%B7%E6%9C%AC%E7%B1%BB%E5%88%AB"><span class="nav-text">判定测试样本类别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E6%B5%81%E7%A8%8B"><span class="nav-text">训练流程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B1%82-alpha"><span class="nav-text">求 $\alpha$</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B1%82-b"><span class="nav-text">求 $b$</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E8%BF%87%E7%A8%8B"><span class="nav-text">测试过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%9D%E8%80%83-2"><span class="nav-text">思考</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E8%8A%82%E5%9B%9E%E9%A1%BE"><span class="nav-text">上节回顾</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E4%B8%8D%E5%8F%AF%E5%88%86%E6%83%85%E5%86%B5"><span class="nav-text">线性不可分情况</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%BE%E6%9D%BE%E9%99%90%E5%88%B6%E6%9D%A1%E4%BB%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%9D%E8%B7%AF"><span class="nav-text">放松限制条件的基本思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%80%83"><span class="nav-text">思考</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%8E%E7%BB%B4%E5%88%B0%E9%AB%98%E7%BB%B4%E6%98%A0%E5%B0%84"><span class="nav-text">低维到高维映射</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%80%83-1"><span class="nav-text">思考</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-text">核函数的定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mercer%E2%80%99s-Theorem"><span class="nav-text">Mercer’s Theorem</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E9%97%AE%E9%A2%98%E4%B8%8E%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98"><span class="nav-text">原问题与对偶问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E9%97%AE%E9%A2%98%EF%BC%88Prime-problem%EF%BC%89"><span class="nav-text">原问题（Prime problem）:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E8%AF%A5%E5%8E%9F%E9%97%AE%E9%A2%98%E7%9A%84%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98%E5%A6%82%E4%B8%8B"><span class="nav-text">定义该原问题的对偶问题如下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E7%90%86%E4%B8%80%EF%BC%9A"><span class="nav-text">定理一：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%BA%E5%AF%B9%E5%81%B6%E5%AE%9A%E7%90%86%EF%BC%88Strong-Duality-Theorem%EF%BC%89"><span class="nav-text">强对偶定理（Strong Duality Theorem）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KKT%E6%9D%A1%E4%BB%B6%EF%BC%9A"><span class="nav-text">KKT条件：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E5%8C%96%E4%B8%BA%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98"><span class="nav-text">转化为对偶问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B"><span class="nav-text">算法流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%B1%82-b"><span class="nav-text">如何求 $b$</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E5%AE%9A%E6%B5%8B%E8%AF%95%E6%A0%B7%E6%9C%AC%E7%B1%BB%E5%88%AB"><span class="nav-text">判定测试样本类别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E6%B5%81%E7%A8%8B"><span class="nav-text">训练流程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B1%82-alpha"><span class="nav-text">求 $\alpha$</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B1%82-b"><span class="nav-text">求 $b$</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E8%BF%87%E7%A8%8B"><span class="nav-text">测试过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%9D%E8%80%83-2"><span class="nav-text">思考</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
