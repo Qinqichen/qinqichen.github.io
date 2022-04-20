@@ -27,14 +27,15 @@
 <meta property="og:site_name" content="个人博客">
 <meta property="og:description" content="服务器突然无法用SSH登录，并且在管理平台上也无法登录。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="d:/Edit/AllOfMyImages/Typora/image-20220420173554160.png">
-<meta property="og:image" content="d:/Edit/AllOfMyImages/Typora/image-20220420174422837.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202204201834408.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202204201834804.png">
 <meta property="article:published_time" content="2022-04-20T09:25:12.000Z">
-<meta property="article:modified_time" content="2022-04-20T09:59:43.886Z">
+<meta property="article:modified_time" content="2022-04-20T10:35:36.064Z">
 <meta property="article:author" content="秦琦琛">
 <meta property="article:tag" content="教程">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="d:/Edit/AllOfMyImages/Typora/image-20220420173554160.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202204201834408.png">
 
 <link rel="canonical" href="https://qinqichen.github.io/2022/04/20/ssh%E6%97%A0%E6%B3%95%E7%99%BB%E5%BD%95%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/">
 
@@ -209,7 +210,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-04-20 17:25:12 / 修改时间：17:59:43" itemprop="dateCreated datePublished" datetime="2022-04-20T17:25:12+08:00">2022-04-20</time>
+              <time title="创建时间：2022-04-20 17:25:12 / 修改时间：18:35:36" itemprop="dateCreated datePublished" datetime="2022-04-20T17:25:12+08:00">2022-04-20</time>
             </span>
 
           
@@ -231,13 +232,13 @@
 
       
         <p> 服务器突然无法用SSH登录，并且在管理平台上也无法登录。</p>
-<p><img src="D:\Edit\AllOfMyImages\Typora\image-20220420173554160.png" alt="image-20220420173554160"></p>
+<p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202204201834408.png" alt="image-20220420173554160"></p>
 <span id="more"></span>
 <h3 id="前因"><a href="#前因" class="headerlink" title="前因"></a>前因</h3><p>服务器用来搭建了Hadoop集群环境，开放了许多端口，用完后没进行关闭，被各种服务疯狂攻击。</p>
-<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>我用的腾讯云服务器，进入系统管理页面，采用VNC登录模式，进入网页版。</p>
-<p><img src="D:\Edit\AllOfMyImages\Typora\image-20220420174422837.png" alt="image-20220420174422837" style="zoom:67%;" /></p>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>我用的腾讯云服务器，进入系统管理页面，采用 <strong>VNC</strong> 登录模式，进入网页版 Shell 界面。</p>
+<p><img src="https://raw.githubusercontent.com/Qinqichen/imgStoreGitHub/main/img/202204201834804.png" alt="image-20220420174422837" style="zoom:67%;" /></p>
 <p>一般情况是能够进行登录的，如果登录进不去，找其他文章吧。</p>
-<p>进入后，用一下指令查看ssh的状态，我这边是ssh服务停止了，未能启动。</p>
+<p>进入后，用一下指令查看 ssh 的状态，我这边是 ssh 服务停止了，未能启动。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status sshd.service</span><br></pre></td></tr></table></figure>
 <p>然后使用restart指令进行重启</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart sshd.service</span><br></pre></td></tr></table></figure>
@@ -246,7 +247,7 @@
 <p>大概率会显示：</p>
 <p>​        Missing 啥啥啥啥 /var/empty/sshd</p>
 <p>用mkdir创建指令进行文件夹的创建即可</p>
-<p>然后重启sshd服务，就能通过ssh进行访问</p>
+<p>然后重启sshd服务，就能通过ssh进行访问。</p>
 <p>注：修改后，能用ssh访问之后，可能系统中的许多东西都被病毒删掉了。估计也不能用了，将个人的部分资料拷贝出来，重装系统较好。</p>
 
     </div>
@@ -275,6 +276,7 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/%E6%95%99%E7%A8%8B/" rel="tag"># 教程</a>
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
           </div>
 
         
@@ -374,7 +376,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
